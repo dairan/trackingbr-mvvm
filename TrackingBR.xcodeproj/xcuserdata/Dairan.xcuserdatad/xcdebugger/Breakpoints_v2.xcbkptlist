@@ -16,80 +16,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F421CB6-7E39-475B-835B-B880616055F1"
+            uuid = "622FCBBA-BC02-4871-A5C8-0B1A7E1CF5D4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackingBR/Cenas/Principal/Views/PrincipalView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "label"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "0F421CB6-7E39-475B-835B-B880616055F1 - 8a29711a612d40d8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TrackingBR.PrincipalView.init(viewModel: TrackingBR.PrincipalViewModel) -&gt; TrackingBR.PrincipalView"
-                  moduleName = "TrackingBR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/SSD2/ARQUIVOS/dev/ios/DairanApps/TrackingBR/TrackingBR/Cenas/Principal/Views/PrincipalView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "79">
-               </Location>
-               <Location
-                  uuid = "0F421CB6-7E39-475B-835B-B880616055F1 - b4cdf002aa779773"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TrackingBR.PrincipalView.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;TrackingBR.PrincipalView&gt;"
-                  moduleName = "TrackingBR"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/SSD2/ARQUIVOS/dev/ios/DairanApps/TrackingBR/TrackingBR/Cenas/Principal/Views/PrincipalView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "95">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5CAEAF15-C624-4AEA-B53F-72A618225EA7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TrackingBR/Cenas/Principal/ViewModels/PrincipalViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "obterDados()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "19244DA1-BE0F-4020-8A98-B52D5F364B14"
+            uuid = "CA6813CA-91CB-4AA9-8D03-E1D6468DC47B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrackingBR/Cenas/Principal/Views/PrincipalView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "init(viewModel:)"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "configurar(com:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

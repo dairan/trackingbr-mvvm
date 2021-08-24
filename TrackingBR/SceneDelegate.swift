@@ -17,9 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let cena = (scene as? UIWindowScene) else { return }
 
     window = UIWindow(windowScene: cena)
+    let repository = Repositorio()
     let principalVM = PrincipalViewModel()
-//    let principalVC = sb.instantiateViewController(identifier: "PrincipalViewController") as PrincipalViewController
-    let principalVC = PrincipalViewController(com: principalVM)
+    let principalVC = PrincipalViewController(com: principalVM, e: repository)
     let nav = UINavigationController(rootViewController: principalVC)
     
     window?.rootViewController = nav

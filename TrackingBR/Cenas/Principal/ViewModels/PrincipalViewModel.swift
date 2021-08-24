@@ -12,36 +12,35 @@ import Foundation
 class PrincipalViewModel {
   // MARK: Lifecycle
 
-  init(respositorio: Repository = Repository()) {
+  init(respositorio: Repositorio = Repositorio()) {
     self.respositorio = respositorio
     obterDados()
   }
 
   // MARK: Internal
 
-  var atualizarView: (() -> Void)?
+  var atualizarView: ((Rastreio) -> Void)?
 
-  var rastreioResults = Bindable<Rastreio>()
+//  var rastreioResults = Bindable<Rastreio>()
 
   var rastreio: Rastreio? {
     didSet {
       print("dados carregados")
-      atualizarView?()
+      guard let rastreio = rastreio else { return }
+      atualizarView?(rastreio)
     }
   }
 
   var titulo: String {
-    return rastreio?.type ?? "não atualizou a view"
+    rastreio?.postedAt ?? "não atualizou a view"
   }
-
-
 
   func obterDados() {
     respositorio.verificar { resultado in
       switch resultado {
-        case .success(let rastreioResults):
-          self.rastreio = rastreioResults
-          self.rastreioResults.valor = rastreioResults
+        case .success(let rastreioResultados):
+          self.rastreio = rastreioResultados
+//          self.rastreioResults.valor = rastreioResults
         case .failure(let erro):
           print("==24===:  erro", erro)
       }
@@ -50,27 +49,5 @@ class PrincipalViewModel {
 
   // MARK: Private
 
-//  private let rastreio: [Rastreio]?
-  private let respositorio: Repository
+  private let respositorio: Repositorio
 }
-
-// MARK: - RastreioVM
-
-//struct RastreioVM {
-//  // MARK: Lifecycle
-//
-//  private let rastreio: Rastreio
-//  init(rastreio: Rastreio) {
-//    self.rastreio = rastreio
-//  }
-//
-//  // MARK: Internal
-//
-//  var objeto: String {
-//    rastreio.code
-//  }
-//
-//  var titulo: String {
-//    rastreio.type
-//  }
-//}

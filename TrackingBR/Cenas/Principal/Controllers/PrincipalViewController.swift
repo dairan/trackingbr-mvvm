@@ -10,9 +10,12 @@ import UIKit
 class PrincipalViewController: UIViewController {
   // MARK: Lifecycle
 
-  init(com viewModel: PrincipalViewModel = PrincipalViewModel()) {
+  init(com viewModel: PrincipalViewModel, e repositorio: Repositorio) {
     self.viewModel = viewModel
+    self.repository = repositorio
     super.init(nibName: nil, bundle: nil)
+
+    bind(viewModel)
   }
 
   required init?(coder: NSCoder) {
@@ -31,10 +34,19 @@ class PrincipalViewController: UIViewController {
 
   // MARK: Private
 
-  private let principalView: PrincipalView = {
-    let view = PrincipalView()
+  private let viewModel: PrincipalViewModel
+  private let repository: Repositorio
+
+  private lazy var principalView: PrincipalView = {
+    let view = PrincipalView(viewModel: self.viewModel)
     return view
   }()
 
-  private let viewModel: PrincipalViewModel
+  private func bind(_ viewModel: PrincipalViewModel) {
+    viewModel.atualizarView = { rastreio in
+      DispatchQueue.main.async {
+        self.principalView.configurar(com: rastreio)
+      }
+    }
+  }
 }
