@@ -22,8 +22,6 @@ class PrincipalViewModel {
 
   var atualizarView: (() -> Void)?
 
-//  var rastreioResults = Bindable<Rastreio>()
-
   var rastreio: Rastreio? {
     didSet {
       atualizarView?()

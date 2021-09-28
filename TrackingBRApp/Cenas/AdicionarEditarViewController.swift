@@ -9,14 +9,8 @@ import UIKit
 
 // MARK: - AdicionarEditarViewController
 
-// protocol AdicionarEditarDelegate: AnyObject {
-//  func salvarTappedTexto(texto: String)
-// }
-
 class AdicionarEditarViewController: UIViewController {
   // MARK: Internal
-
-//  weak var delegate: AdicionarEditarDelegate?
 
   override func loadView() {
     super.loadView()
@@ -31,9 +25,12 @@ class AdicionarEditarViewController: UIViewController {
 
   // MARK: Private
 
-private let viewModel = AdicionarEditarViewModel()
+  private var encomendaParaSalvar = EncomendaParaSalvarDTO()
+
+  private let viewModel = AdicionarEditarViewModel()
   private lazy var addEditarView = AdicionarEditarView()
   private let salvarButtonItem = UIBarButtonItem(systemItem: .save)
+
 
   private func navBarSetup() {
     let cancelarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -58,11 +55,13 @@ private let viewModel = AdicionarEditarViewModel()
   }
 
   @objc private func salvarTapped() {
-    guard let encomenda = encomendaParaSalvar else { fatalError() }
+
+    guard !encomendaParaSalvar.codigo.isEmpty else { return }
+
     let encomendaCD = Encomenda(context: GerenciadorCoreData.shared.contexto)
-    encomendaCD.codigo = encomenda.codigo
-    encomendaCD.descricao = encomenda.descricao
-    encomendaCD.adicionadoEm = encomenda.data
+    encomendaCD.codigo = encomendaParaSalvar.codigo
+    encomendaCD.descricao = encomendaParaSalvar.descricao
+    encomendaCD.adicionadoEm = encomendaParaSalvar.data
 
     do {
       try GerenciadorCoreData.shared.persistentContainer.viewContext.save()
@@ -70,28 +69,45 @@ private let viewModel = AdicionarEditarViewModel()
       print("==19===:  error", error)
     }
 
-
     dispensarView()
   }
-
-  private var encomendaParaSalvar: EncomendaParaSalvarDTO?
 }
 
 // MARK: - AdicionarEditarViewController
 
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
-  func fecharView() {
+  func codigoParaSalvar(texto: String) {
+    encomendaParaSalvar.codigo = texto
+  }
+
+  func descricaoParaSalvar(texto: String) {
+    encomendaParaSalvar.descricao = texto
+
+  }
+
+  func dataParaSalvar(data: Date) {
+    encomendaParaSalvar.data = data
+
+  }
+
+  func fecharCalendario() {
     dismiss(animated: true, completion: nil)
   }
 
-
   func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO) {
     print("==32===:  encomenda", encomenda)
-    encomendaParaSalvar = encomenda
+//    encomendaParaSalvar = encomenda
   }
 
-  
   func habilitarBotao(_ estaHabilitado: Bool) {
     salvarButtonItem.isEnabled = estaHabilitado
   }
+}
+
+// MARK: - EncomendaParaSalvarDTO
+
+struct EncomendaParaSalvarDTO {
+  var codigo: String = ""
+  var descricao: String = ""
+  var data = Date()
 }
