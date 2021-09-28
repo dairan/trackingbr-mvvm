@@ -12,8 +12,9 @@ import Foundation
 class PrincipalViewModel {
   // MARK: Lifecycle
 
-  init(respositorio: Repositorio = Repositorio()) {
-    self.respositorio = respositorio
+  init(coreData: GerenciadorCoreData, repositorio: Repositorio) {
+    self.gerenciadorCoreData = coreData
+    self.repositorio = repositorio
     obterDados()
   }
 
@@ -29,24 +30,19 @@ class PrincipalViewModel {
     }
   }
 
-  var titulo: String {
-    rastreio?.postedAt ?? "não atualizou a view"
-  }
-
-  func obterDados() {
-    respositorio.verificar { resultado in
-      switch resultado {
-        case .success(let rastreioResultados):
-          self.rastreio = rastreioResultados
-//          self.rastreioResults.valor = rastreioResults
-        case .failure(let erro):
-          print("==24===:  erro", erro)
-      }
-    }
-  }
-
   // MARK: Private
 
-  private let respositorio: Repositorio
+  private var repositorio: Repositorio?
+  private var gerenciadorCoreData: GerenciadorCoreData?
 
+  private func obterDados() {
+    repositorio?.verificar(aoTerminar: { resultado in
+      switch resultado {
+      case let .success(rastreio):
+        print("==28===:  rastreio", rastreio)
+      case let .failure(erro):
+        print("==33===:  erro", erro)
+      }
+    })
+  }
 }

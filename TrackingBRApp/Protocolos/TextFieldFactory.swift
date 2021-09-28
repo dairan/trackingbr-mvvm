@@ -8,5 +8,5 @@
 import UIKit
 
 protocol TextFieldFactory {
-  func criarTextField(com placeholder: String, e cor: UIColor) -> UITextField
+  func criarTextField(comPlaceholder placeholder: String, corBackground cor: UIColor) -> UITextField
 }

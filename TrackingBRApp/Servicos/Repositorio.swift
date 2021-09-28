@@ -9,6 +9,7 @@ import Foundation
 
 class Repositorio {
   private let urlString = "https://trackingbr.dairan.com/v1/codigo/LB466560165SE"
+//  private let urlString = "https://hp-api.herokuapp.com/api/characters"
 
   func verificar(aoTerminar: @escaping (Result<Rastreio, Error>) -> Void) {
     guard let url = URL(string: urlString) else { fatalError() }

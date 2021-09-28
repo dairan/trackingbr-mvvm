@@ -7,22 +7,19 @@
 
 import UIKit
 
-// MARK: - AdicionarEditarDelegate
-
-protocol AdicionarEditarDelegate: AnyObject {
-  func salvarTappedTexto(texto: String)
-}
-
 // MARK: - AdicionarEditarViewController
+
+// protocol AdicionarEditarDelegate: AnyObject {
+//  func salvarTappedTexto(texto: String)
+// }
 
 class AdicionarEditarViewController: UIViewController {
   // MARK: Internal
 
-  weak var delegate: AdicionarEditarDelegate?
+//  weak var delegate: AdicionarEditarDelegate?
 
   override func loadView() {
     super.loadView()
-    let addEditarView = AdicionarEditarView()
     addEditarView.delegate = self
     view = addEditarView
   }
@@ -34,35 +31,63 @@ class AdicionarEditarViewController: UIViewController {
 
   // MARK: Private
 
-  private func navBarSetup() {
-    let cancelarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-    cancelarButtonItem.action = #selector(fecharTapped)
+private let viewModel = AdicionarEditarViewModel()
+  private lazy var addEditarView = AdicionarEditarView()
+  private let salvarButtonItem = UIBarButtonItem(systemItem: .save)
 
-    let salvarButtonItem = UIBarButtonItem(systemItem: .save)
+  private func navBarSetup() {
+    let cancelarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                             target: self,
+                                             action: nil)
+    cancelarButtonItem.action = #selector(fecharDidTapped)
+
     salvarButtonItem.target = self
     salvarButtonItem.action = #selector(salvarTapped)
+    salvarButtonItem.isEnabled = false
 
     navigationItem.leftBarButtonItem = cancelarButtonItem
     navigationItem.rightBarButtonItem = salvarButtonItem
   }
 
-  private func fecharView() {
+  private func dispensarView() {
     dismiss(animated: true, completion: nil)
   }
 
-  @objc private func fecharTapped() {
-    fecharView()
+  @objc private func fecharDidTapped() {
+    dispensarView()
   }
 
   @objc private func salvarTapped() {
-    fecharView()
+    guard let encomenda = encomendaParaSalvar else { fatalError() }
+    let encomendaCD = Encomenda(context: GerenciadorCoreData.shared.contexto)
+    encomendaCD.codigo = encomenda.codigo
+    encomendaCD.descricao = encomenda.descricao
+    encomendaCD.adicionadoEm = encomenda.data
+
+    do {
+      try GerenciadorCoreData.shared.persistentContainer.viewContext.save()
+    } catch {
+      print("==19===:  error", error)
+    }
+
+
+    dispensarView()
   }
+
+  private var encomendaParaSalvar: EncomendaParaSalvarDTO?
 }
 
-// MARK: AdicionarEditarViewDelegate
+// MARK: - AdicionarEditarViewController
 
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
-  func salvarTappedTexto(texto: String) {
-    delegate?.salvarTappedTexto(texto: texto)
+
+  func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO) {
+    print("==32===:  encomenda", encomenda)
+    self.encomendaParaSalvar = encomenda
+  }
+
+  
+  func habilitarBotao(_ estaHabilitado: Bool) {
+    salvarButtonItem.isEnabled = estaHabilitado
   }
 }
