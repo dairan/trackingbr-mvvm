@@ -12,13 +12,18 @@ import UIKit
 protocol AdicionarEditarViewDelegate: AnyObject {
   func habilitarBotao(_ string: Bool)
   func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO)
-  func fecharView()
+  func fecharCalendario()
+  func codigoParaSalvar(texto: String)
+  func descricaoParaSalvar(texto: String)
+  func dataParaSalvar(data: Date)
 }
 
 // MARK: - AdicionarEditarView
 
 class AdicionarEditarView: UIView {
   // MARK: Lifecycle
+
+  private var dataParaSalvar = Date()
 
   required init? (coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -42,12 +47,15 @@ class AdicionarEditarView: UIView {
   private lazy var codigoTextField: MeuTextField = {
     let tf = MeuTextField().criar(comPlaceholder: "Código da encomenda", corBackground: .systemBackground)
     tf.delegate = self
+    tf.tag = 0
     return tf
   }()
 
   private lazy var descricaoTextField: MeuTextField = {
     let tf = MeuTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
     tf.delegate = self
+    tf.tag = 1
+    tf.spellCheckingType = .yes
     return tf
   }()
 
@@ -69,14 +77,10 @@ class AdicionarEditarView: UIView {
     return stackView
   }()
 
-  @objc private func fecharDidTap() {
-    delegate?.fecharView()
-  }
-
   @objc private func dataPickerMudouValor(sender: UIDatePicker) {
-    let data = sender.date
-    encomendaDTO.data = data
-    delegate?.fecharView()
+    dataParaSalvar = sender.date
+    delegate?.dataParaSalvar(data: dataParaSalvar)
+    delegate?.fecharCalendario()
   }
 
   private func configurar() {
@@ -113,16 +117,14 @@ class MeuTextField: UITextField {
     bounds.inset(by: espacamento)
   }
 
-  // MARK: Private
-
-  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+  // MARK: Fileprivate
 
   /// Para criar TextFields
   /// - Parameters:
   ///   - string: texto do placeholder
   ///   - cor: de background
   /// - Returns: textField montado pronto para uso.
-  private func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
+  fileprivate func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
     let textField = MeuTextField(frame: .zero)
     textField.accessibilityIdentifier = string
     textField.translatesAutoresizingMaskIntoConstraints = false
@@ -135,63 +137,76 @@ class MeuTextField: UITextField {
     textField.layer.masksToBounds = true
     textField.autocorrectionType = .no
     textField.enablesReturnKeyAutomatically = true
+    textField.autocapitalizationType = .none
+    textField.autocorrectionType = .no
+    textField.spellCheckingType = .no
     return textField
   }
+
+  // MARK: Private
+
+  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 }
 
 // MARK: - AdicionarEditarView + UITextFieldDelegate
 
 extension AdicionarEditarView: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
+
+    switch textField {
+      case codigoTextField: descricaoTextField.becomeFirstResponder()
+      default:
+        descricaoTextField.resignFirstResponder()
+        break
+    }
     return false
   }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
-    switch textField {
-    case let codigo where textField.accessibilityIdentifier == "Código da encomenda":
-      encomendaDTO.codigo = codigo.text ?? ""
-    case let descricao where textField.accessibilityIdentifier == "Descrição":
-      encomendaDTO.descricao = descricao.text ?? ""
-    default:
-      break
-    }
-    delegate?.devolverEncomendaParaSalvar(encomenda: encomendaDTO)
+//    switch textField {
+//    case let codigo where textField.tag == 0:
+//      encomendaDTO.codigo = codigo.text ?? ""
+//      delegate?.codigoParaSalvar(texto: codigo.text ?? "")
+//    case let descricao where textField.tag == 1:
+//      encomendaDTO.descricao = descricao.text ?? """"
+//      delegate?.descricaoParaSalvar(texto: descricao.text ?? "")
+//    default:
+//      break
+//    }
+
+//    delegate?.devolverEncomendaParaSalvar(encomenda: encomendaDTO)
   }
 
   /// para adcionar o texto field
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     guard let textoAntigo = textField.text else { return false }
-    let novoRange = Range(range, in: textoAntigo)!
+    guard let novoRange = Range(range, in: textoAntigo) else { fatalError() }
     let textoNovo = textoAntigo.replacingCharacters(in: novoRange, with: string)
 
     let status = !textoNovo.isEmpty
 
     switch textField {
-    case self.codigoTextField:
-      let estaHabilitado = validar(se: textField, status)
-      delegate?.habilitarBotao(estaHabilitado)
-    default:
-      break
+    case codigoTextField:
+        let estaHabilitado = validar(se: textField, status)
+        delegate?.habilitarBotao(estaHabilitado)
+        delegate?.codigoParaSalvar(texto: textoNovo)
+        delegate?.dataParaSalvar(data: dataParaSalvar)
+
+    case descricaoTextField:
+        delegate?.descricaoParaSalvar(texto: textoNovo)
+    default: break
     }
+
     return true
   }
 
   private func validar(se textField: UITextField, _ temTexto: Bool) -> Bool {
     if temTexto {
-      textField.layer.borderColor = UIColor.systemGreen.cgColor
+      textField.layer.borderColor = UIColor.green.cgColor
       return true
     } else {
       textField.layer.borderColor = UIColor.red.cgColor
       return false
     }
   }
-}
-
-// MARK: - EncomendaParaSalvarDTO
-
-struct EncomendaParaSalvarDTO {
-  var codigo: String = ""
-  var descricao: String = ""
-  var data = Date()
 }

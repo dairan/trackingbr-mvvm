@@ -19,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let principalVM = PrincipalViewModel(coreData: gerenciadorCoreData, repositorio: repositorio)
     let principalVC = PrincipalViewController(com: principalVM)
     let nav = UINavigationController(rootViewController: principalVC)
+    nav.navigationBar.tintColor = .systemMint
+
 
     window?.rootViewController = nav
     window?.makeKeyAndVisible()

@@ -27,7 +27,6 @@
 		B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAA26D3127000BA428C /* DTFButton.swift */; };
 		B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAC26D3127D00BA428C /* DTFLabel.swift */; };
 		B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */; };
-		B1FEA9E726F0475A0022231E /* ValidarFormulario.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +52,6 @@
 		B1D60AAA26D3127000BA428C /* DTFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFButton.swift; sourceTree = "<group>"; };
 		B1D60AAC26D3127D00BA428C /* DTFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFLabel.swift; sourceTree = "<group>"; };
 		B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewModel.swift; sourceTree = "<group>"; };
-		B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidarFormulario.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +88,6 @@
 				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
 				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
 				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
-				B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */,
 			);
 			name = AdicionarEditar;
 			sourceTree = "<group>";
@@ -276,7 +273,6 @@
 				B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */,
 				B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */,
 				B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */,
-				B1FEA9E726F0475A0022231E /* ValidarFormulario.swift in Sources */,
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
 				B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */,
 				B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */,
