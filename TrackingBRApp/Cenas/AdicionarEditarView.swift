@@ -12,13 +12,18 @@ import UIKit
 protocol AdicionarEditarViewDelegate: AnyObject {
   func habilitarBotao(_ string: Bool)
   func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO)
-  func fecharView()
+  func fecharCalendario()
+  func codigoParaSalvar(texto: String)
+  func descricaoParaSalvar(texto: String)
+  func dataParaSalvar(data: Date)
 }
 
 // MARK: - AdicionarEditarView
 
 class AdicionarEditarView: UIView {
   // MARK: Lifecycle
+
+  private var dataParaSalvar = Date()
 
   required init? (coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -42,12 +47,14 @@ class AdicionarEditarView: UIView {
   private lazy var codigoTextField: MeuTextField = {
     let tf = MeuTextField().criar(comPlaceholder: "Código da encomenda", corBackground: .systemBackground)
     tf.delegate = self
+    tf.tag = 0
     return tf
   }()
 
   private lazy var descricaoTextField: MeuTextField = {
     let tf = MeuTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
     tf.delegate = self
+    tf.tag = 1
     return tf
   }()
 
@@ -69,14 +76,10 @@ class AdicionarEditarView: UIView {
     return stackView
   }()
 
-  @objc private func fecharDidTap() {
-    delegate?.fecharView()
-  }
-
   @objc private func dataPickerMudouValor(sender: UIDatePicker) {
-    let data = sender.date
-    encomendaDTO.data = data
-    delegate?.fecharView()
+    dataParaSalvar = sender.date
+    delegate?.dataParaSalvar(data: dataParaSalvar)
+    delegate?.fecharCalendario()
   }
 
   private func configurar() {
@@ -113,9 +116,7 @@ class MeuTextField: UITextField {
     bounds.inset(by: espacamento)
   }
 
-  // MARK: Private
-
-  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+  // MARK: Fileprivate
 
   /// Para criar TextFields
   /// - Parameters:
@@ -137,6 +138,10 @@ class MeuTextField: UITextField {
     textField.enablesReturnKeyAutomatically = true
     return textField
   }
+
+  // MARK: Private
+
+  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 }
 
 // MARK: - AdicionarEditarView + UITextFieldDelegate
@@ -148,32 +153,40 @@ extension AdicionarEditarView: UITextFieldDelegate {
   }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
-    switch textField {
-    case let codigo where textField.accessibilityIdentifier == "Código da encomenda":
-      encomendaDTO.codigo = codigo.text ?? ""
-    case let descricao where textField.accessibilityIdentifier == "Descrição":
-      encomendaDTO.descricao = descricao.text ?? ""
-    default:
-      break
-    }
-    delegate?.devolverEncomendaParaSalvar(encomenda: encomendaDTO)
+//    switch textField {
+//    case let codigo where textField.tag == 0:
+//      encomendaDTO.codigo = codigo.text ?? ""
+//      delegate?.codigoParaSalvar(texto: codigo.text ?? "")
+//    case let descricao where textField.tag == 1:
+//      encomendaDTO.descricao = descricao.text ?? """"
+//      delegate?.descricaoParaSalvar(texto: descricao.text ?? "")
+//    default:
+//      break
+//    }
+
+//    delegate?.devolverEncomendaParaSalvar(encomenda: encomendaDTO)
   }
 
   /// para adcionar o texto field
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     guard let textoAntigo = textField.text else { return false }
-    let novoRange = Range(range, in: textoAntigo)!
+    guard let novoRange = Range(range, in: textoAntigo) else { fatalError() }
     let textoNovo = textoAntigo.replacingCharacters(in: novoRange, with: string)
 
     let status = !textoNovo.isEmpty
 
     switch textField {
-    case self.codigoTextField:
-      let estaHabilitado = validar(se: textField, status)
-      delegate?.habilitarBotao(estaHabilitado)
-    default:
-      break
+    case codigoTextField:
+        let estaHabilitado = validar(se: textField, status)
+        delegate?.habilitarBotao(estaHabilitado)
+        delegate?.codigoParaSalvar(texto: textoNovo)
+        delegate?.dataParaSalvar(data: dataParaSalvar)
+
+    case descricaoTextField:
+        delegate?.descricaoParaSalvar(texto: textoNovo)
+    default: break
     }
+
     return true
   }
 
@@ -186,12 +199,4 @@ extension AdicionarEditarView: UITextFieldDelegate {
       return false
     }
   }
-}
-
-// MARK: - EncomendaParaSalvarDTO
-
-struct EncomendaParaSalvarDTO {
-  var codigo: String = ""
-  var descricao: String = ""
-  var data = Date()
 }

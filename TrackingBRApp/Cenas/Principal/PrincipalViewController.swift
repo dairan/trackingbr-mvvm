@@ -5,7 +5,7 @@
 //  Created by Dairan on 22/08/21.
 //
 
-// import CoreData
+//import CoreData
 import UIKit
 
 // MARK: - PrincipalViewController
@@ -24,16 +24,21 @@ class PrincipalViewController: UIViewController {
 
   // MARK: Internal
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     configurarNavBar()
+
+
   }
 
   override func loadView() {
     view = principalView
   }
 
-  // MARK: Private
 
   private let viewModel: PrincipalViewModel
 
@@ -74,4 +79,6 @@ class PrincipalViewController: UIViewController {
     showDetailViewController(vc, sender: nil)
   }
 
+
 }
+

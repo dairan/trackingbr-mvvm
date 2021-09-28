@@ -73,8 +73,17 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
     let encomenda = fetchResultController.object(at: indexPath)
-    cell.textLabel?.text = encomenda.codigo
-    cell.detailTextLabel?.text = encomenda.descricao
+
+    var conteudo = cell.defaultContentConfiguration()
+    conteudo.text = encomenda.codigo
+    conteudo.secondaryText = encomenda.descricao
+
+
+//    cell.textLabel?.text = encomenda.codigo
+//    cell.detailTextLabel?.text = encomenda.descricao
+//    cell.tex
+
+    cell.contentConfiguration = conteudo
     return cell
   }
 
@@ -91,13 +100,10 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-
     let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { acao, view, aoTerminar in
       let encomenda = self.fetchResultController.object(at: indexPath)
       GerenciadorCoreData.shared.contexto.delete(encomenda)
     }
-
 
     let config = UISwipeActionsConfiguration(actions: [apagarAction])
     return config
