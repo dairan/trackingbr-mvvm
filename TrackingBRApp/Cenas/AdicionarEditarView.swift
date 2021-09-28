@@ -7,16 +7,21 @@
 
 import UIKit
 
+// MARK: - AdicionarEditarViewDelegate
+
 protocol AdicionarEditarViewDelegate: AnyObject {
-  func salvarTappedTexto(texto: String)
+  func habilitarBotao(_ string: Bool)
+  func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO)
 }
 
+// MARK: - AdicionarEditarView
 
 class AdicionarEditarView: UIView {
   // MARK: Lifecycle
 
-  weak var delegate: AdicionarEditarViewDelegate?
-
+  required init? (coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   init() {
     super.init(frame: .zero)
@@ -24,76 +29,169 @@ class AdicionarEditarView: UIView {
     configurarConstraits()
   }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  // MARK: Internal
+
+  weak var delegate: AdicionarEditarViewDelegate?
+
   // MARK: Private
 
-  private func configurar() {
-    backgroundColor = .systemGreen
+  private var encomendaDTO = EncomendaParaSalvarDTO()
+  private lazy var textFields: [MeuTextField] = [codigoTextField, descricaoTextField]
 
-    addSubview(textosStackView)
-    let views: [UIView] = [tf1, tf2, tf3, codigoTextField]
-    for view in views {
-      textosStackView.addArrangedSubview(view)
-//      view.heightAnchor.constraint(equalToConstant: 55).isActive = true
-    }
-  }
+  private lazy var codigoTextField: MeuTextField = {
+    let tf = MeuTextField().criar(comPlaceholder: "Código da encomenda", corBackground: .systemBackground)
+    tf.delegate = self
+    return tf
+  }()
 
-  private lazy var tf1: UITextField = { criarTextField(com: "tf1", e: .lightGray) }()
-  private lazy var tf2: UITextField = { criarTextField(com: "tf2", e: .lightGray) }()
-  private lazy var tf3: UITextField = { criarTextField(com: "tf3", e: .lightGray) }()
-  private lazy var codigoTextField: UITextField = { criarTextField(com: "codigo text field", e: .lightGray) }()
+  private lazy var descricaoTextField: MeuTextField = {
+    let tf = MeuTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
+    tf.delegate = self
+    return tf
+  }()
+
+  private lazy var dataDatePicker: UIDatePicker = {
+    let datePicker = UIDatePicker()
+    datePicker.tag = 2
+    datePicker.datePickerMode = .date
+    datePicker.tintColor = .white
+    return datePicker
+  }()
 
   private lazy var textosStackView: UIStackView = {
     let stackView = UIStackView(frame: .zero)
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.axis = .vertical
-    stackView.distribution = .fillEqually
-//    stackView.alignment = .fill
-    stackView.backgroundColor = .magenta
+    stackView.distribution = .fill
     stackView.spacing = 20
-//    stackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//    stackView.isLayoutMarginsRelativeArrangement = true
-
     return stackView
   }()
 
+  @objc private func dataPickerMudouValor(sender: UIDatePicker) {
+    let data = sender.date
+    encomendaDTO.data = data
+  }
+
+  private func configurar() {
+    backgroundColor = .systemMint
+
+    addSubview(textosStackView)
+    textFields.forEach { textosStackView.addArrangedSubview($0) }
+
+    dataDatePicker.addTarget(self, action: #selector(dataPickerMudouValor), for: .valueChanged)
+    textosStackView.addArrangedSubview(dataDatePicker)
+  }
+
   private func configurarConstraits() {
     NSLayoutConstraint.activate([
-      textosStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-      textosStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5.0),
-//      textosStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15.0),
-      textosStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: safeAreaLayoutGuide.leadingAnchor, multiplier: 2),
-
-//      textosStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-      textosStackView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.3),
+      textosStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+      textosStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+      textosStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
+//      textosStackView.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor)
+      textosStackView.bottomAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: safeAreaLayoutGuide.bottomAnchor, multiplier: 1.0),
     ])
   }
 }
 
-extension AdicionarEditarView: TextFieldFactory {
-  internal func criarTextField(com placeholder: String, e cor: UIColor) -> UITextField {
-    let textField = UITextField(frame: .zero)
+// MARK: - MeuTextField
+
+class MeuTextField: UITextField {
+//
+//  override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+//    bounds.inset(by: espacamento)
+//  }
+//
+//  override func drawText(in rect: CGRect) {
+//    super.drawText(in: bounds.inset(by: espacamento))
+//  }
+
+  let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+
+  /// Para criar TextFields
+  /// - Parameters:
+  ///   - string: texto do placeholder
+  ///   - cor: de background
+  /// - Returns: textField montado pronto para uso.
+  func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
+    let textField = MeuTextField(frame: .zero)
+    textField.accessibilityIdentifier = string
     textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.placeholder = placeholder
+    textField.placeholder = string
     textField.backgroundColor = cor
-    textField.delegate = self
-    textField.setContentHuggingPriority(UILayoutPriority(300), for: .vertical)
+    textField.layer.cornerRadius = espacamento.top / 2
+    textField.layer.borderWidth = 1
+    textField.font = UIFont.preferredFont(forTextStyle: .title1)
+    textField.layer.borderColor = UIColor.white.cgColor
+    textField.layer.masksToBounds = true
+    textField.autocorrectionType = .no
+    textField.enablesReturnKeyAutomatically = true
     return textField
   }
-}
 
-extension AdicionarEditarView: AdicionarEditarViewDelegate {
-  func salvarTappedTexto(texto: String) {
+  override func textRect(forBounds bounds: CGRect) -> CGRect {
+    bounds.inset(by: espacamento)
+  }
 
+  override func editingRect(forBounds bounds: CGRect) -> CGRect {
+    bounds.inset(by: espacamento)
   }
 }
+
+// MARK: - AdicionarEditarView + UITextFieldDelegate
 
 extension AdicionarEditarView: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return false
+  }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
-    guard let texto = textField.text else { return }
-    delegate?.salvarTappedTexto(texto: texto)
+
+    switch textField {
+    case let codigo where textField.accessibilityIdentifier == "Código da encomenda":
+      encomendaDTO.codigo = codigo.text ?? ""
+    case let descricao where textField.accessibilityIdentifier == "Descrição":
+      encomendaDTO.descricao = descricao.text ?? ""
+    default:
+      break
+    }
+    delegate?.devolverEncomendaParaSalvar(encomenda: encomendaDTO)
   }
+
+  /// para adcionar o texto field
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    guard let textoAntigo = textField.text else { return false }
+    let novoRange = Range(range, in: textoAntigo)!
+    let textoNovo = textoAntigo.replacingCharacters(in: novoRange, with: string)
+
+    let status = !textoNovo.isEmpty
+
+    switch textField {
+      case self.codigoTextField:
+        let estaHabilitado = validar(se: textField, status)
+        delegate?.habilitarBotao(estaHabilitado)
+      default:
+        break
+    }
+
+    return true
+  }
+
+  private func validar(se textField: UITextField, _ temTexto: Bool) -> Bool {
+    if temTexto {
+      textField.layer.borderColor = UIColor.systemGreen.cgColor
+      return true
+    } else {
+      textField.layer.borderColor = UIColor.red.cgColor
+      return false
+    }
+  }
+}
+
+// MARK: - EncomendaParaSalvarDTO
+
+struct EncomendaParaSalvarDTO {
+  var codigo: String = ""
+  var descricao: String = ""
+  var data: Date = Date()
 }

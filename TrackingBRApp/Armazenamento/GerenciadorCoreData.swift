@@ -8,14 +8,14 @@
 import CoreData
 import Foundation
 
-class CoreDataGerenciador {
+class GerenciadorCoreData {
   // MARK: Lifecycle
 
   private init() {}
 
   // MARK: Internal
 
-  static let shared = CoreDataGerenciador()
+  static let shared = GerenciadorCoreData()
 
   // MARK: - Core Data stack
 
@@ -26,7 +26,7 @@ class CoreDataGerenciador {
      application to it. This property is optional since there are legitimate
      error conditions that could cause the creation of the store to fail.
      */
-    let container = NSPersistentCloudKitContainer(name: "TrackingBRApp")
+    let container = NSPersistentCloudKitContainer(name: "EncomandasList")
     container.loadPersistentStores(completionHandler: { storeDescription, error in
       if let error = error as NSError? {
         // Replace this implementation with code to handle the error appropriately.
@@ -46,19 +46,31 @@ class CoreDataGerenciador {
     return container
   }()
 
+  lazy var contexto: NSManagedObjectContext = {
+    persistentContainer.viewContext
+  }()
+
   // MARK: - Core Data Saving support
 
   func salvarContext() {
-    let context = persistentContainer.viewContext
-    if context.hasChanges {
+    if contexto.hasChanges {
       do {
-        try context.save()
+        try contexto.save()
+        contexto.reset()
       } catch {
         // Replace this implementation with code to handle the error appropriately.
         // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nserror = error as NSError
         fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
       }
+    }
+  }
+
+  func adicionar(_ encomenda: Encomenda) {
+    do {
+      try contexto.save()
+    } catch let erro {
+      print("==12===:  erro", erro)
     }
   }
 }

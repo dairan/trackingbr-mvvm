@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B19C641826E797A100BA03F4 /* CoreDataGerenciador.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C641726E797A100BA03F4 /* CoreDataGerenciador.swift */; };
+		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
+		B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */ = {isa = PBXBuildFile; fileRef = B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */; };
+		B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */; };
 		B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */; };
 		B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */; };
 		B19C642526E8095000BA03F4 /* TextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642426E8095000BA03F4 /* TextFieldFactory.swift */; };
@@ -24,10 +26,14 @@
 		B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AA726D310B700BA428C /* PrincipalView.swift */; };
 		B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAA26D3127000BA428C /* DTFButton.swift */; };
 		B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAC26D3127D00BA428C /* DTFLabel.swift */; };
+		B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */; };
+		B1FEA9E726F0475A0022231E /* ValidarFormulario.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B19C641726E797A100BA03F4 /* CoreDataGerenciador.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataGerenciador.swift; sourceTree = "<group>"; };
+		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
+		B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TrackingBRApp.docc; sourceTree = "<group>"; };
+		B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerenciadorCoreData.swift; sourceTree = "<group>"; };
 		B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EncomandasList.xcdatamodel; sourceTree = "<group>"; };
 		B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewController.swift; sourceTree = "<group>"; };
 		B19C642426E8095000BA03F4 /* TextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFactory.swift; sourceTree = "<group>"; };
@@ -46,6 +52,8 @@
 		B1D60AA726D310B700BA428C /* PrincipalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrincipalView.swift; sourceTree = "<group>"; };
 		B1D60AAA26D3127000BA428C /* DTFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFButton.swift; sourceTree = "<group>"; };
 		B1D60AAC26D3127D00BA428C /* DTFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFLabel.swift; sourceTree = "<group>"; };
+		B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewModel.swift; sourceTree = "<group>"; };
+		B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidarFormulario.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +67,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B154303E26EAB2BB00772F73 /* Configuracoes */ = {
+			isa = PBXGroup;
+			children = (
+				B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */,
+			);
+			path = Configuracoes;
+			sourceTree = "<group>";
+		};
 		B19C641F26E79A4200BA03F4 /* Armazenamento */ = {
 			isa = PBXGroup;
 			children = (
-				B19C641726E797A100BA03F4 /* CoreDataGerenciador.swift */,
+				B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */,
 				B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */,
 			);
 			path = Armazenamento;
@@ -71,8 +87,10 @@
 		B19C642226E7C99800BA03F4 /* AdicionarEditar */ = {
 			isa = PBXGroup;
 			children = (
-				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
 				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
+				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
+				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
+				B1FEA9E626F0475A0022231E /* ValidarFormulario.swift */,
 			);
 			name = AdicionarEditar;
 			sourceTree = "<group>";
@@ -104,13 +122,14 @@
 		B1D60A8426D3068200BA428C /* TrackingBRApp */ = {
 			isa = PBXGroup;
 			children = (
-				B19C642326E8091600BA03F4 /* Protocolos */,
 				B19C641F26E79A4200BA03F4 /* Armazenamento */,
 				B1D60AA526D309E200BA428C /* Cenas */,
 				B1D60A9926D3068B00BA428C /* Models */,
+				B19C642326E8091600BA03F4 /* Protocolos */,
 				B1E65EB526D4EC8000141A04 /* Recursos */,
 				B1D60A9C26D3071400BA428C /* Servicos */,
 				B1E65EB426D4EBF600141A04 /* Views */,
+				B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */,
 			);
 			path = TrackingBRApp;
 			sourceTree = "<group>";
@@ -137,6 +156,7 @@
 			children = (
 				B1D60AA626D309FC00BA428C /* Principal */,
 				B19C642226E7C99800BA03F4 /* AdicionarEditar */,
+				B154303E26EAB2BB00772F73 /* Configuracoes */,
 			);
 			path = Cenas;
 			sourceTree = "<group>";
@@ -145,8 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				B1D60A8926D3068200BA428C /* PrincipalViewController.swift */,
-				B1D60AA726D310B700BA428C /* PrincipalView.swift */,
 				B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */,
+				B1D60AA726D310B700BA428C /* PrincipalView.swift */,
 			);
 			path = Principal;
 			sourceTree = "<group>";
@@ -241,18 +261,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */,
 				B19C642526E8095000BA03F4 /* TextFieldFactory.swift in Sources */,
 				B1D60A8A26D3068200BA428C /* PrincipalViewController.swift in Sources */,
 				B1D60AA426D309D400BA428C /* PrincipalViewModel.swift in Sources */,
-				B19C641826E797A100BA03F4 /* CoreDataGerenciador.swift in Sources */,
+				B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */,
 				B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */,
 				B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */,
 				B1D60AA226D307F100BA428C /* Repositorio.swift in Sources */,
 				B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */,
 				B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */,
+				B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */,
 				B1D60AA026D3079400BA428C /* Rastreio.swift in Sources */,
 				B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */,
 				B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */,
+				B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */,
+				B1FEA9E726F0475A0022231E /* ValidarFormulario.swift in Sources */,
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
 				B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */,
 				B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */,
@@ -324,7 +348,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -379,7 +403,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

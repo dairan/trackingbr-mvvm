@@ -14,7 +14,7 @@ struct Rastreio: Codable {
   let code, type: String
   let tracks: [Track]
   let isDelivered: Bool
-  let postedAt, updatedAt: String
+  var postedAt, updatedAt: String
 }
 
 // MARK: - Track

@@ -20,11 +20,7 @@ class PrincipalView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private var viewModel: PrincipalViewModel? {
-    didSet{
-      label.text = viewModel?.titulo
-    }
-  }
+  private var viewModel: PrincipalViewModel?
   // MARK: Internal
 
   func configurar(com viewModel: PrincipalViewModel) {
@@ -33,12 +29,14 @@ class PrincipalView: UIView {
 
   // MARK: Private
 
-//  private let viewModel: PrincipalViewModel
-
   private lazy var label: DTFLabel = {
     let label = DTFLabel()
     return label
   }()
+
+  private func configurar(viewModel: PrincipalViewModel) {
+    self.viewModel = viewModel
+  }
 
   private func configurarUI() {
     backgroundColor = .systemYellow
