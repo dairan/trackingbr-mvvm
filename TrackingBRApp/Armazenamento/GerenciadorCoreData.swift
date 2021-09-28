@@ -66,11 +66,21 @@ class GerenciadorCoreData {
     }
   }
 
-  func adicionar(_ encomenda: Encomenda) {
-    do {
-      try contexto.save()
-    } catch let erro {
-      print("==12===:  erro", erro)
-    }
+//  func adicionar(_ encomenda: Encomenda) {
+//    do {
+//      try contexto.save()
+//    } catch let erro {
+//      print("==12===:  erro", erro)
+//    }
+//  }
+
+  func adicionar(encomenda: EncomendaParaSalvarDTO) {
+
+    let encomendaCD = Encomenda(context: contexto)
+    encomendaCD.codigo = encomenda.codigo
+    encomendaCD.descricao = encomenda.descricao
+    encomendaCD.adicionadoEm = encomenda.data
+
+    salvarContext()
   }
 }
