@@ -55,6 +55,7 @@ class AdicionarEditarView: UIView {
     let tf = MeuTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
     tf.delegate = self
     tf.tag = 1
+    tf.spellCheckingType = .yes
     return tf
   }()
 
@@ -136,6 +137,9 @@ class MeuTextField: UITextField {
     textField.layer.masksToBounds = true
     textField.autocorrectionType = .no
     textField.enablesReturnKeyAutomatically = true
+    textField.autocapitalizationType = .none
+    textField.autocorrectionType = .no
+    textField.spellCheckingType = .no
     return textField
   }
 
@@ -148,7 +152,13 @@ class MeuTextField: UITextField {
 
 extension AdicionarEditarView: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
+
+    switch textField {
+      case codigoTextField: descricaoTextField.becomeFirstResponder()
+      default:
+        descricaoTextField.resignFirstResponder()
+        break
+    }
     return false
   }
 
@@ -192,7 +202,7 @@ extension AdicionarEditarView: UITextFieldDelegate {
 
   private func validar(se textField: UITextField, _ temTexto: Bool) -> Bool {
     if temTexto {
-      textField.layer.borderColor = UIColor.systemGreen.cgColor
+      textField.layer.borderColor = UIColor.green.cgColor
       return true
     } else {
       textField.layer.borderColor = UIColor.red.cgColor
