@@ -100,12 +100,25 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { acao, view, aoTerminar in
-      let encomenda = self.fetchResultController.object(at: indexPath)
-      GerenciadorCoreData.shared.contexto.delete(encomenda)
-    }
+    let encomenda = self.fetchResultController.object(at: indexPath)
 
-    let config = UISwipeActionsConfiguration(actions: [apagarAction])
+    let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { acao, view, aoTerminar in
+      GerenciadorCoreData.shared.contexto.delete(encomenda)
+      aoTerminar(true)
+    }
+    apagarAction.image = UIImage(systemName: "trash")
+
+    let editarButton = UIContextualAction(style: .normal, title: "Editar") { acao, view, aoTerminar in
+//         TODO: implementar edição do elemento.
+      aoTerminar(true)
+    }
+    editarButton.backgroundColor = .systemOrange
+
+
+
+    let config = UISwipeActionsConfiguration(actions: [apagarAction, editarButton])
+    config.performsFirstActionWithFullSwipe = false
+
     return config
   }
 }

@@ -58,16 +58,7 @@ class AdicionarEditarViewController: UIViewController {
 
     guard !encomendaParaSalvar.codigo.isEmpty else { return }
 
-    let encomendaCD = Encomenda(context: GerenciadorCoreData.shared.contexto)
-    encomendaCD.codigo = encomendaParaSalvar.codigo
-    encomendaCD.descricao = encomendaParaSalvar.descricao
-    encomendaCD.adicionadoEm = encomendaParaSalvar.data
-
-    do {
-      try GerenciadorCoreData.shared.persistentContainer.viewContext.save()
-    } catch {
-      print("==19===:  error", error)
-    }
+    GerenciadorCoreData.shared.adicionar(encomenda: encomendaParaSalvar)
 
     dispensarView()
   }
