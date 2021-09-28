@@ -5,6 +5,7 @@
 //  Created by Dairan on 22/08/21.
 //
 
+import CoreData
 import UIKit
 
 // MARK: - PrincipalViewController
@@ -23,14 +24,23 @@ class PrincipalViewController: UIViewController {
 
   // MARK: Internal
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+
+    do {
+      try fetchResultController.performFetch()
+    } catch {
+      print("==44===:  error", error)
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(listagemTableView)
     configurarNavBar()
     configurarConstraits()
-    bind(viewModel)
+//    bind(viewModel)
   }
-
 
   override func loadView() {
     view = principalView
@@ -38,10 +48,26 @@ class PrincipalViewController: UIViewController {
 
   // MARK: Private
 
+  private lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
+    let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
+
+    let ordenador = NSSortDescriptor(key: #keyPath(Encomenda.adicionadoEm), ascending: false)
+    fetchRequest.sortDescriptors = [ordenador]
+
+    let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                           managedObjectContext: GerenciadorCoreData.shared.contexto,
+                                           sectionNameKeyPath: nil,
+                                           cacheName: nil)
+    nsfrc.delegate = self
+
+    return nsfrc
+
+  }()
+
   private lazy var listagemTableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.accessibilityIdentifier = "Listagem TableView"
+    tableView.accessibilityIdentifier = "listagem-tableView"
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellId")
     tableView.delegate = self
     tableView.dataSource = self
@@ -76,7 +102,7 @@ class PrincipalViewController: UIViewController {
     let nav = UINavigationController(rootViewController: vc)
     nav.navigationBar.tintColor = .white
     nav.navigationBar.titleTextAttributes = [
-      NSAttributedString.Key.foregroundColor : UIColor.white
+      NSAttributedString.Key.foregroundColor: UIColor.white,
     ]
     present(nav, animated: true)
   }
@@ -86,13 +112,13 @@ class PrincipalViewController: UIViewController {
     show(vc, sender: nil)
   }
 
-  private func bind(_ viewModel: PrincipalViewModel) {
-    viewModel.atualizarView = {
-      DispatchQueue.main.async {
-        self.principalView.configurar(com: viewModel)
-      }
-    }
-  }
+//  private func bind(_ viewModel: PrincipalViewModel) {
+//    viewModel.atualizarView = {
+//      DispatchQueue.main.async {
+//        self.principalView.configurar(com: viewModel)
+//      }
+//    }
+//  }
 
   private func configurarConstraits() {
     NSLayoutConstraint.activate([
@@ -116,12 +142,56 @@ class PrincipalViewController: UIViewController {
 // }
 
 extension PrincipalViewController: UITableViewDataSource, UITableViewDelegate {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    fetchResultController.sections?.count ?? 0
+  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    3
+    guard let info = fetchResultController.sections?[section] else { return 0 }
+    return info.numberOfObjects
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+    let encomenda = fetchResultController.object(at: indexPath)
+    cell.textLabel?.text = encomenda.codigo
+    cell.detailTextLabel?.text = encomenda.descricao
     return cell
+  }
+
+  private func configure() {
+  }
+}
+
+// MARK: - PrincipalViewController
+
+extension PrincipalViewController: NSFetchedResultsControllerDelegate {
+  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    listagemTableView.beginUpdates()
+  }
+
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    switch type {
+    case .insert:
+      if let newIndexPath = newIndexPath {
+        listagemTableView.insertRows(at: [newIndexPath], with: .automatic)
+      }
+    case .delete:
+      if let indexPath = indexPath {
+        listagemTableView.deleteRows(at: [indexPath], with: .automatic)
+      }
+    case .move:
+      break
+    case .update:
+      if let indexPath = indexPath {
+        listagemTableView.reloadRows(at: [indexPath], with: .automatic)
+      }
+      @unknown default:
+        break
+    }
+  }
+
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    listagemTableView.endUpdates()
   }
 }

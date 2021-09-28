@@ -39,7 +39,8 @@ class PrincipalViewModel {
     repositorio?.verificar(aoTerminar: { resultado in
       switch resultado {
       case let .success(rastreio):
-        print("==28===:  rastreio", rastreio)
+//        print("==28===:  rastreio", rastreio)
+          break
       case let .failure(erro):
         print("==33===:  erro", erro)
       }

@@ -122,7 +122,7 @@ class MeuTextField: UITextField {
   ///   - string: texto do placeholder
   ///   - cor: de background
   /// - Returns: textField montado pronto para uso.
-  private func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
+  fileprivate func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
     let textField = MeuTextField(frame: .zero)
     textField.accessibilityIdentifier = string
     textField.translatesAutoresizingMaskIntoConstraints = false

@@ -15,7 +15,7 @@ class Repositorio {
     guard let url = URL(string: urlString) else { fatalError() }
 
     let tarefa = URLSession.shared.dataTask(with: url) { dados, resposta, erro in
-      guard let dados = dados else { fatalError() }
+      guard let dados = dados else { return }
 
       let decode = JSONDecoder()
       do {
