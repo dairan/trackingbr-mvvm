@@ -12,6 +12,7 @@ import UIKit
 protocol AdicionarEditarViewDelegate: AnyObject {
   func habilitarBotao(_ string: Bool)
   func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO)
+  func fecharView()
 }
 
 // MARK: - AdicionarEditarView
@@ -55,6 +56,7 @@ class AdicionarEditarView: UIView {
     datePicker.tag = 2
     datePicker.datePickerMode = .date
     datePicker.tintColor = .white
+    datePicker.minimumDate = Date()
     return datePicker
   }()
 
@@ -67,9 +69,14 @@ class AdicionarEditarView: UIView {
     return stackView
   }()
 
+  @objc private func fecharDidTap() {
+    delegate?.fecharView()
+  }
+
   @objc private func dataPickerMudouValor(sender: UIDatePicker) {
     let data = sender.date
     encomendaDTO.data = data
+    delegate?.fecharView()
   }
 
   private func configurar() {
@@ -96,23 +103,26 @@ class AdicionarEditarView: UIView {
 // MARK: - MeuTextField
 
 class MeuTextField: UITextField {
-//
-//  override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-//    bounds.inset(by: espacamento)
-//  }
-//
-//  override func drawText(in rect: CGRect) {
-//    super.drawText(in: bounds.inset(by: espacamento))
-//  }
+  // MARK: Internal
 
-  let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+  override func textRect(forBounds bounds: CGRect) -> CGRect {
+    bounds.inset(by: espacamento)
+  }
+
+  override func editingRect(forBounds bounds: CGRect) -> CGRect {
+    bounds.inset(by: espacamento)
+  }
+
+  // MARK: Private
+
+  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 
   /// Para criar TextFields
   /// - Parameters:
   ///   - string: texto do placeholder
   ///   - cor: de background
   /// - Returns: textField montado pronto para uso.
-  func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
+  private func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
     let textField = MeuTextField(frame: .zero)
     textField.accessibilityIdentifier = string
     textField.translatesAutoresizingMaskIntoConstraints = false
@@ -127,14 +137,6 @@ class MeuTextField: UITextField {
     textField.enablesReturnKeyAutomatically = true
     return textField
   }
-
-  override func textRect(forBounds bounds: CGRect) -> CGRect {
-    bounds.inset(by: espacamento)
-  }
-
-  override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    bounds.inset(by: espacamento)
-  }
 }
 
 // MARK: - AdicionarEditarView + UITextFieldDelegate
@@ -146,7 +148,6 @@ extension AdicionarEditarView: UITextFieldDelegate {
   }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
-
     switch textField {
     case let codigo where textField.accessibilityIdentifier == "Código da encomenda":
       encomendaDTO.codigo = codigo.text ?? ""
@@ -167,13 +168,12 @@ extension AdicionarEditarView: UITextFieldDelegate {
     let status = !textoNovo.isEmpty
 
     switch textField {
-      case self.codigoTextField:
-        let estaHabilitado = validar(se: textField, status)
-        delegate?.habilitarBotao(estaHabilitado)
-      default:
-        break
+    case self.codigoTextField:
+      let estaHabilitado = validar(se: textField, status)
+      delegate?.habilitarBotao(estaHabilitado)
+    default:
+      break
     }
-
     return true
   }
 
@@ -193,5 +193,5 @@ extension AdicionarEditarView: UITextFieldDelegate {
 struct EncomendaParaSalvarDTO {
   var codigo: String = ""
   var descricao: String = ""
-  var data: Date = Date()
+  var data = Date()
 }

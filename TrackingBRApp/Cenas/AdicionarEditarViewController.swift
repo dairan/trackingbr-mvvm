@@ -80,10 +80,14 @@ private let viewModel = AdicionarEditarViewModel()
 // MARK: - AdicionarEditarViewController
 
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
+  func fecharView() {
+    dismiss(animated: true, completion: nil)
+  }
+
 
   func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO) {
     print("==32===:  encomenda", encomenda)
-    self.encomendaParaSalvar = encomenda
+    encomendaParaSalvar = encomenda
   }
 
   
