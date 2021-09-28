@@ -18,11 +18,8 @@ class PrincipalView: UIView {
     addSubview(listagemTableView)
     configurarConstraits()
 
-    do {
-      try fetchResultController.performFetch()
-    } catch {
-      print("==44===:  error", error)
-    }
+    fonteDados = fonteDadosSetup()
+    executarBuscaDadosCoreData()
   }
 
   required init?(coder: NSCoder) {
@@ -30,6 +27,8 @@ class PrincipalView: UIView {
   }
 
   // MARK: Private
+
+  private var fonteDados: UITableViewDiffableDataSource<String, Encomenda>?
 
   private lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
     let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
@@ -40,7 +39,7 @@ class PrincipalView: UIView {
     let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                            managedObjectContext: GerenciadorCoreData.shared.contexto,
                                            sectionNameKeyPath: nil,
-                                           cacheName: nil)
+                                           cacheName: "testeCache")
     nsfrc.delegate = self
 
     return nsfrc
@@ -53,41 +52,30 @@ class PrincipalView: UIView {
     tableView.accessibilityIdentifier = "listagem-tableView"
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellId")
     tableView.delegate = self
-    tableView.dataSource = self
     return tableView
   }()
-}
 
-// MARK: - PrincipalView
-
-extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    fetchResultController.sections?.count ?? 0
+  private func executarBuscaDadosCoreData() {
+    do {
+      try fetchResultController.performFetch()
+    } catch {
+      print("==44===:  error", error)
+    }
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let info = fetchResultController.sections?[section] else { return 0 }
-    return info.numberOfObjects
-  }
+  private func fonteDadosSetup() -> UITableViewDiffableDataSource<String, Encomenda> {
+    UITableViewDiffableDataSource(tableView: listagemTableView) { tableView, indexPath, itemIdentifier in
+      let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+      let encomenda = self.fetchResultController.object(at: indexPath)
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
-    let encomenda = fetchResultController.object(at: indexPath)
+      var conteudo = cell.defaultContentConfiguration()
+      conteudo.text = encomenda.codigo
+      conteudo.secondaryText = encomenda.descricao
 
-    var conteudo = cell.defaultContentConfiguration()
-    conteudo.text = encomenda.codigo
-    conteudo.secondaryText = encomenda.descricao
+      cell.contentConfiguration = conteudo
 
-
-//    cell.textLabel?.text = encomenda.codigo
-//    cell.detailTextLabel?.text = encomenda.descricao
-//    cell.tex
-
-    cell.contentConfiguration = conteudo
-    return cell
-  }
-
-  private func configure() {
+      return cell
+    }
   }
 
   private func configurarConstraits() {
@@ -98,7 +86,11 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
       listagemTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
   }
+}
 
+// MARK: - PrincipalView
+
+extension PrincipalView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let encomenda = self.fetchResultController.object(at: indexPath)
 
@@ -109,12 +101,10 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
     apagarAction.image = UIImage(systemName: "trash")
 
     let editarButton = UIContextualAction(style: .normal, title: "Editar") { acao, view, aoTerminar in
-//         TODO: implementar edição do elemento.
+      //         TODO: implementar edição do elemento.
       aoTerminar(true)
     }
     editarButton.backgroundColor = .systemOrange
-
-
 
     let config = UISwipeActionsConfiguration(actions: [apagarAction, editarButton])
     config.performsFirstActionWithFullSwipe = false
@@ -126,32 +116,11 @@ extension PrincipalView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - PrincipalView
 
 extension PrincipalView: NSFetchedResultsControllerDelegate {
-  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    listagemTableView.beginUpdates()
-  }
-
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    switch type {
-    case .insert:
-      if let newIndexPath = newIndexPath {
-        listagemTableView.insertRows(at: [newIndexPath], with: .automatic)
-      }
-    case .delete:
-      if let indexPath = indexPath {
-        listagemTableView.deleteRows(at: [indexPath], with: .automatic)
-      }
-    case .move:
-      break
-    case .update:
-      if let indexPath = indexPath {
-        listagemTableView.reloadRows(at: [indexPath], with: .automatic)
-      }
-    @unknown default:
-      break
-    }
-  }
-
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    listagemTableView.endUpdates()
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                  didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+    var diferenca = NSDiffableDataSourceSnapshot<String, Encomenda>()
+    diferenca.appendSections(["aa"])
+    diferenca.appendItems(fetchResultController.fetchedObjects ?? [], toSection: nil)
+    fonteDados?.apply(diferenca)
   }
 }
