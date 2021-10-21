@@ -5,13 +5,15 @@
 //  Created by Dairan on 22/08/21.
 //
 
+//import Atlantis
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    true
+//    Atlantis.start(hostName: "dairan-macbook-pro.local.")
+    //Atlantis.start()
+    return true
   }
 
   // MARK: UISceneSession Lifecycle
