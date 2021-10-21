@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Atlantis",
+        "repositoryURL": "https://github.com/ProxymanApp/atlantis",
+        "state": {
+          "branch": null,
+          "revision": "2ee37f1da01b438d67012cc1405617e158f358a1",
+          "version": "1.11.2"
+        }
+      },
+      {
+        "package": "Toast",
+        "repositoryURL": "https://github.com/BastiaanJansen/Toast-Swift.git",
+        "state": {
+          "branch": null,
+          "revision": "50e7acb296e7cef43b1524be202c093b3dc26962",
+          "version": "1.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

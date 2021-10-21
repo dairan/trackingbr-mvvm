@@ -13,8 +13,11 @@ import UIKit
 class PrincipalViewController: UIViewController {
   // MARK: Lifecycle
 
-  init(com viewModel: PrincipalViewModel) {
+  private let coredata: GerenciadorCoreData
+
+  init(com viewModel: PrincipalViewModel, coredata: GerenciadorCoreData = GerenciadorCoreData()) {
     self.viewModel = viewModel
+    self.coredata = coredata
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -24,18 +27,14 @@ class PrincipalViewController: UIViewController {
 
   // MARK: Internal
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(true)
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
+
     configurarNavBar()
-
-
   }
 
   override func loadView() {
+    principalView.delegate = self
     view = principalView
   }
 
@@ -43,7 +42,7 @@ class PrincipalViewController: UIViewController {
   private let viewModel: PrincipalViewModel
 
   private lazy var principalView: PrincipalView = {
-    let view = PrincipalView()
+    let view = PrincipalView(coredata: coredata)
     return view
   }()
 
@@ -63,7 +62,7 @@ class PrincipalViewController: UIViewController {
   }
 
   @objc private func adicionarTapped() {
-    let vc = AdicionarEditarViewController()
+    let vc = AdicionarEditarViewController(coredata: coredata)
     vc.title = "Adicionar/ Editar"
 
     let nav = UINavigationController(rootViewController: vc)
@@ -78,7 +77,12 @@ class PrincipalViewController: UIViewController {
     let vc = ConfiguracoesViewController()
     showDetailViewController(vc, sender: nil)
   }
-
-
 }
 
+extension PrincipalViewController: PrincipalViewDelegate {
+
+  func encomendaSelecionada(_ encomenda: Encomenda) {
+    let vc = EncomendaDetalhesViewController(encomenda: encomenda)
+    navigationController?.pushViewController(vc, animated: true)
+  }
+}

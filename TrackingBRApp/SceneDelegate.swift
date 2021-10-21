@@ -9,16 +9,17 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
+  let coredata = GerenciadorCoreData()
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     guard let cena = (scene as? UIWindowScene) else { return }
 
     window = UIWindow(windowScene: cena)
-    let gerenciadorCoreData = GerenciadorCoreData.shared
     let repositorio = Repositorio()
-    let principalVM = PrincipalViewModel(coreData: gerenciadorCoreData, repositorio: repositorio)
+    let principalVM = PrincipalViewModel(coreData: coredata, repositorio: repositorio)
     let principalVC = PrincipalViewController(com: principalVM)
     let nav = UINavigationController(rootViewController: principalVC)
+    nav.navigationBar.prefersLargeTitles = true
     nav.navigationBar.tintColor = .systemMint
 
 
@@ -54,7 +55,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // to restore the scene back to its current state.
 
     // Save changes in the application's managed object context when the application transitions to the background.
-    let coredata = GerenciadorCoreData.shared
-    coredata.salvarContext()
+    coredata.salvarContexto()
   }
 }
