@@ -10,27 +10,58 @@ import UIKit
 // MARK: - AdicionarEditarViewController
 
 class AdicionarEditarViewController: UIViewController {
+  // MARK: Lifecycle
+
+  init(coredata: GerenciadorCoreData) {
+    self.coredata = coredata
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   // MARK: Internal
 
   override func loadView() {
     super.loadView()
+
     addEditarView.delegate = self
     view = addEditarView
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     navBarSetup()
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    obterDados()
   }
 
   // MARK: Private
 
-  private var encomendaParaSalvar = EncomendaParaSalvarDTO()
-
+  private var coredata: GerenciadorCoreData
   private let viewModel = AdicionarEditarViewModel()
-  private lazy var addEditarView = AdicionarEditarView()
+  private lazy var addEditarView = AdicionarEditarView(with: viewModel)
+  private var codigosEncontrados: [String]?
+
   private let salvarButtonItem = UIBarButtonItem(systemItem: .save)
 
+  private func obterDados() {
+    let repositorio = Repositorio()
+    repositorio.verificar(aoTerminar: { resultado in
+      switch resultado {
+      case let .success(rastreio):
+        print("==28===:  rastreio", rastreio ?? "")
+      case let .failure(erro):
+        print("==33===:  erro", erro)
+      }
+    })
+  }
 
   private func navBarSetup() {
     let cancelarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -38,9 +69,9 @@ class AdicionarEditarViewController: UIViewController {
                                              action: nil)
     cancelarButtonItem.action = #selector(fecharDidTapped)
 
-    salvarButtonItem.target = self
     salvarButtonItem.action = #selector(salvarTapped)
     salvarButtonItem.isEnabled = false
+    salvarButtonItem.target = self
 
     navigationItem.leftBarButtonItem = cancelarButtonItem
     navigationItem.rightBarButtonItem = salvarButtonItem
@@ -55,50 +86,29 @@ class AdicionarEditarViewController: UIViewController {
   }
 
   @objc private func salvarTapped() {
-
-    guard !encomendaParaSalvar.codigo.isEmpty else { return }
-
-    GerenciadorCoreData.shared.adicionar(encomenda: encomendaParaSalvar)
+//    guard encomendaParaSalvar.codigo.isEmpty == false else { return }
+//    coredata.adicionar(encomenda: encomendaParaSalvar)
 
     dispensarView()
   }
 }
 
-// MARK: - AdicionarEditarViewController
+// MARK: AdicionarEditarViewDelegate
 
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
-  func codigoParaSalvar(texto: String) {
-    encomendaParaSalvar.codigo = texto
+  func devolveuEncomenda(_ encomenda: AdicionarEditar) {
+    coredata.adicionar(encomenda)
   }
 
-  func descricaoParaSalvar(texto: String) {
-    encomendaParaSalvar.descricao = texto
-
+  func encontrouVariosCodigos(_ codigos: [String]) {
+    codigosEncontrados = codigos
   }
 
-  func dataParaSalvar(data: Date) {
-    encomendaParaSalvar.data = data
-
-  }
-
-  func fecharCalendario() {
+  func fechouCalendario() {
     dismiss(animated: true, completion: nil)
   }
 
-  func devolverEncomendaParaSalvar(encomenda: EncomendaParaSalvarDTO) {
-    print("==32===:  encomenda", encomenda)
-//    encomendaParaSalvar = encomenda
-  }
-
-  func habilitarBotao(_ estaHabilitado: Bool) {
+  func habilitouBotaoSalvar(_ estaHabilitado: Bool) {
     salvarButtonItem.isEnabled = estaHabilitado
   }
-}
-
-// MARK: - EncomendaParaSalvarDTO
-
-struct EncomendaParaSalvarDTO {
-  var codigo: String = ""
-  var descricao: String = ""
-  var data = Date()
 }
