@@ -8,13 +8,21 @@
 import CoreData
 import UIKit
 
+// MARK: - PrincipalViewDelegate
+
+protocol PrincipalViewDelegate: AnyObject {
+  func encomendaSelecionada(_ encomenda: Encomenda)
+}
+
 // MARK: - PrincipalView
 
 class PrincipalView: UIView {
   // MARK: Lifecycle
 
-  init() {
+  init(coredata: GerenciadorCoreData) {
+    self.coredata = coredata
     super.init(frame: .zero)
+
     addSubview(listagemTableView)
     configurarConstraits()
 
@@ -26,25 +34,31 @@ class PrincipalView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // MARK: Internal
+
+  weak var delegate: PrincipalViewDelegate?
+
   // MARK: Private
+
+  private var coredata: GerenciadorCoreData
 
   private var fonteDados: UITableViewDiffableDataSource<String, Encomenda>?
 
-  private lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
-    let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
-
-    let ordenador = NSSortDescriptor(key: #keyPath(Encomenda.adicionadoEm), ascending: false)
-    fetchRequest.sortDescriptors = [ordenador]
-
-    let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                           managedObjectContext: GerenciadorCoreData.shared.contexto,
-                                           sectionNameKeyPath: nil,
-                                           cacheName: "testeCache")
-    nsfrc.delegate = self
-
-    return nsfrc
-
-  }()
+//  private lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
+//    let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
+//
+//    let ordenador = NSSortDescriptor(key: #keyPath(Encomenda.adicionadoEm), ascending: false)
+//    fetchRequest.sortDescriptors = [ordenador]
+//
+//    let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
+//                                           managedObjectContext: coredata.contexto,
+//                                           sectionNameKeyPath: nil,
+//                                           cacheName: "testeCache")
+//    nsfrc.delegate = self
+//
+//    return nsfrc
+//
+//  }()
 
   private lazy var listagemTableView: UITableView = {
     let tableView = UITableView()
@@ -56,8 +70,9 @@ class PrincipalView: UIView {
   }()
 
   private func executarBuscaDadosCoreData() {
+    coredata.fetchResultController.delegate = self
     do {
-      try fetchResultController.performFetch()
+      try coredata.fetchResultController.performFetch()
     } catch {
       print("==44===:  error", error)
     }
@@ -66,7 +81,7 @@ class PrincipalView: UIView {
   private func fonteDadosSetup() -> UITableViewDiffableDataSource<String, Encomenda> {
     UITableViewDiffableDataSource(tableView: listagemTableView) { tableView, indexPath, itemIdentifier in
       let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
-      let encomenda = self.fetchResultController.object(at: indexPath)
+      let encomenda = self.coredata.fetchResultController.object(at: indexPath)
 
       var conteudo = cell.defaultContentConfiguration()
       conteudo.text = encomenda.codigo
@@ -88,20 +103,24 @@ class PrincipalView: UIView {
   }
 }
 
-// MARK: - PrincipalView
+// MARK: UITableViewDelegate
 
 extension PrincipalView: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let encomenda = coredata.fetchResultController.object(at: indexPath)
+    delegate?.encomendaSelecionada(encomenda)
+  }
+
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let encomenda = self.fetchResultController.object(at: indexPath)
+    let encomenda = coredata.fetchResultController.object(at: indexPath)
 
     let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { acao, view, aoTerminar in
-      GerenciadorCoreData.shared.contexto.delete(encomenda)
+      self.coredata.apagar(encomenda: encomenda)
       aoTerminar(true)
     }
     apagarAction.image = UIImage(systemName: "trash")
 
     let editarButton = UIContextualAction(style: .normal, title: "Editar") { acao, view, aoTerminar in
-      //         TODO: implementar edição do elemento.
       aoTerminar(true)
     }
     editarButton.backgroundColor = .systemOrange
@@ -113,14 +132,15 @@ extension PrincipalView: UITableViewDelegate {
   }
 }
 
-// MARK: - PrincipalView
+// MARK: NSFetchedResultsControllerDelegate
 
 extension PrincipalView: NSFetchedResultsControllerDelegate {
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                  didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+                  didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference)
+  {
     var diferenca = NSDiffableDataSourceSnapshot<String, Encomenda>()
     diferenca.appendSections(["aa"])
-    diferenca.appendItems(fetchResultController.fetchedObjects ?? [], toSection: nil)
+    diferenca.appendItems(coredata.fetchResultController.fetchedObjects ?? [], toSection: nil)
     fonteDados?.apply(diferenca)
   }
 }

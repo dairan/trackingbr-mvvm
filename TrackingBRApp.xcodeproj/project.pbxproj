@@ -3,18 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B115919F271A049700046829 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B115919E271A049700046829 /* APIError.swift */; };
 		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
 		B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */ = {isa = PBXBuildFile; fileRef = B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */; };
+		B1606D452720EF7900FF575D /* AdicionarEditar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* AdicionarEditar.swift */; };
+		B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D4B2721838F00FF575D /* GrandeTextField.swift */; };
+		B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */; };
+		B182FC8627051A4200914A46 /* DetalhesHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */; };
+		B1992770271DDCE100987AD9 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = B199276F271DDCE100987AD9 /* Atlantis */; };
 		B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */; };
 		B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */; };
 		B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */; };
 		B19C642526E8095000BA03F4 /* TextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642426E8095000BA03F4 /* TextFieldFactory.swift */; };
 		B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */; };
 		B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C42FF626D3972E0004B613 /* Bindable.swift */; };
+		B1CDE450270A43FB0036CB3C /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B1CDE44F270A43FB0036CB3C /* Toast */; };
 		B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8526D3068200BA428C /* AppDelegate.swift */; };
 		B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8726D3068200BA428C /* SceneDelegate.swift */; };
 		B1D60A8A26D3068200BA428C /* PrincipalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8926D3068200BA428C /* PrincipalViewController.swift */; };
@@ -30,8 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B115919E271A049700046829 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
 		B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TrackingBRApp.docc; sourceTree = "<group>"; };
+		B1606D442720EF7900FF575D /* AdicionarEditar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditar.swift; sourceTree = "<group>"; };
+		B1606D4B2721838F00FF575D /* GrandeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandeTextField.swift; sourceTree = "<group>"; };
+		B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaDetalhesViewController.swift; sourceTree = "<group>"; };
+		B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesHeaderFooterView.swift; sourceTree = "<group>"; };
 		B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerenciadorCoreData.swift; sourceTree = "<group>"; };
 		B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EncomandasList.xcdatamodel; sourceTree = "<group>"; };
 		B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewController.swift; sourceTree = "<group>"; };
@@ -59,18 +71,77 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1992770271DDCE100987AD9 /* Atlantis in Frameworks */,
+				B1CDE450270A43FB0036CB3C /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B11591A0271A04AE00046829 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B115919E271A049700046829 /* APIError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B154303E26EAB2BB00772F73 /* Configuracoes */ = {
 			isa = PBXGroup;
 			children = (
 				B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */,
 			);
 			path = Configuracoes;
+			sourceTree = "<group>";
+		};
+		B1606D462720EF7D00FF575D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B1606D442720EF7900FF575D /* AdicionarEditar.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B1606D472720EF8900FF575D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B1606D482720EF9500FF575D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B1606D492720EFA200FF575D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B1606D4A2721828A00FF575D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				B1606D4B2721838F00FF575D /* GrandeTextField.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		B182FC82270514B800914A46 /* Detalhes */ = {
+			isa = PBXGroup;
+			children = (
+				B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */,
+				B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */,
+			);
+			path = Detalhes;
 			sourceTree = "<group>";
 		};
 		B19C641F26E79A4200BA03F4 /* Armazenamento */ = {
@@ -85,9 +156,10 @@
 		B19C642226E7C99800BA03F4 /* AdicionarEditar */ = {
 			isa = PBXGroup;
 			children = (
-				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
-				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
-				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
+				B1606D462720EF7D00FF575D /* Models */,
+				B1606D472720EF8900FF575D /* ViewModels */,
+				B1606D482720EF9500FF575D /* Views */,
+				B1606D492720EFA200FF575D /* Controllers */,
 			);
 			name = AdicionarEditar;
 			sourceTree = "<group>";
@@ -144,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D60AA126D307F100BA428C /* Repositorio.swift */,
+				B11591A0271A04AE00046829 /* Models */,
 			);
 			path = Servicos;
 			sourceTree = "<group>";
@@ -151,8 +224,10 @@
 		B1D60AA526D309E200BA428C /* Cenas */ = {
 			isa = PBXGroup;
 			children = (
+				B1606D4A2721828A00FF575D /* CustomViews */,
 				B1D60AA626D309FC00BA428C /* Principal */,
 				B19C642226E7C99800BA03F4 /* AdicionarEditar */,
+				B182FC82270514B800914A46 /* Detalhes */,
 				B154303E26EAB2BB00772F73 /* Configuracoes */,
 			);
 			path = Cenas;
@@ -161,9 +236,9 @@
 		B1D60AA626D309FC00BA428C /* Principal */ = {
 			isa = PBXGroup;
 			children = (
-				B1D60A8926D3068200BA428C /* PrincipalViewController.swift */,
-				B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */,
 				B1D60AA726D310B700BA428C /* PrincipalView.swift */,
+				B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */,
+				B1D60A8926D3068200BA428C /* PrincipalViewController.swift */,
 			);
 			path = Principal;
 			sourceTree = "<group>";
@@ -205,6 +280,10 @@
 			dependencies = (
 			);
 			name = TrackingBRApp;
+			packageProductDependencies = (
+				B1CDE44F270A43FB0036CB3C /* Toast */,
+				B199276F271DDCE100987AD9 /* Atlantis */,
+			);
 			productName = TrackingBR;
 			productReference = B1D60A8226D3068200BA428C /* TrackingBRApp.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +311,10 @@
 				Base,
 			);
 			mainGroup = B1D60A7926D3068200BA428C;
+			packageReferences = (
+				B1CDE44E270A43FB0036CB3C /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				B199276E271DDCE100987AD9 /* XCRemoteSwiftPackageReference "atlantis" */,
+			);
 			productRefGroup = B1D60A8326D3068200BA428C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -265,17 +348,22 @@
 				B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */,
 				B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */,
 				B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */,
+				B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */,
 				B1D60AA226D307F100BA428C /* Repositorio.swift in Sources */,
 				B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */,
 				B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */,
 				B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */,
+				B1606D452720EF7900FF575D /* AdicionarEditar.swift in Sources */,
+				B182FC8627051A4200914A46 /* DetalhesHeaderFooterView.swift in Sources */,
 				B1D60AA026D3079400BA428C /* Rastreio.swift in Sources */,
 				B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */,
+				B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */,
 				B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */,
 				B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */,
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
 				B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */,
 				B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */,
+				B115919F271A049700046829 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dairan.TrackingBRApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dairan2.TrackingBRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -440,7 +528,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dairan.TrackingBRApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dairan2.TrackingBRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -469,6 +557,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B199276E271DDCE100987AD9 /* XCRemoteSwiftPackageReference "atlantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ProxymanApp/atlantis";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		B1CDE44E270A43FB0036CB3C /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BastiaanJansen/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B199276F271DDCE100987AD9 /* Atlantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B199276E271DDCE100987AD9 /* XCRemoteSwiftPackageReference "atlantis" */;
+			productName = Atlantis;
+		};
+		B1CDE44F270A43FB0036CB3C /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1CDE44E270A43FB0036CB3C /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */ = {

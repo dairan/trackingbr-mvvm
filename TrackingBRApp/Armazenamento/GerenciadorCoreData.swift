@@ -11,11 +11,11 @@ import Foundation
 class GerenciadorCoreData {
   // MARK: Lifecycle
 
-  private init() {}
+  init() {}
 
   // MARK: Internal
 
-  static let shared = GerenciadorCoreData()
+//  static let shared = GerenciadorCoreData()
 
   // MARK: - Core Data stack
 
@@ -50,37 +50,47 @@ class GerenciadorCoreData {
     persistentContainer.viewContext
   }()
 
+  lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
+    let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
+
+    let ordenador = NSSortDescriptor(key: #keyPath(Encomenda.adicionadoEm), ascending: false)
+    fetchRequest.sortDescriptors = [ordenador]
+
+    let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                           managedObjectContext: contexto,
+                                           sectionNameKeyPath: nil,
+                                           cacheName: "testeCache")
+
+    return nsfrc
+
+  }()
+
   // MARK: - Core Data Saving support
 
-  func salvarContext() {
+  func salvarContexto() {
     if contexto.hasChanges {
       do {
         try contexto.save()
         contexto.reset()
       } catch {
-        // Replace this implementation with code to handle the error appropriately.
-        // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nserror = error as NSError
         fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
       }
     }
   }
 
-//  func adicionar(_ encomenda: Encomenda) {
-//    do {
-//      try contexto.save()
-//    } catch let erro {
-//      print("==12===:  erro", erro)
-//    }
-//  }
-
-  func adicionar(encomenda: EncomendaParaSalvarDTO) {
-
+  func adicionar(_ encomenda: AdicionarEditar) {
     let encomendaCD = Encomenda(context: contexto)
     encomendaCD.codigo = encomenda.codigo
     encomendaCD.descricao = encomenda.descricao
     encomendaCD.adicionadoEm = encomenda.data
 
-    salvarContext()
+    salvarContexto()
+  }
+
+  func apagar(encomenda: Encomenda) {
+    contexto.delete(encomenda)
+
+    salvarContexto()
   }
 }
