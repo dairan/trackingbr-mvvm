@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B1F36AE127218A3900801F44"
+               BuildableName = "TrackingBRAppTests.xctest"
+               BlueprintName = "TrackingBRAppTests"
+               ReferencedContainer = "container:TrackingBRApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -53,13 +63,13 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "CFNETWORK_DIAGNOSTICS"
-            value = "3"
-            isEnabled = "NO">
+            value = "2"
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "OS_ACTIVITY_MODE"
-            value = "enable"
-            isEnabled = "NO">
+            value = "debug"
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
