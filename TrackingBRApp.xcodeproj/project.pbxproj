@@ -34,7 +34,18 @@
 		B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAA26D3127000BA428C /* DTFButton.swift */; };
 		B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAC26D3127D00BA428C /* DTFLabel.swift */; };
 		B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */; };
+		B1F36AE527218A3900801F44 /* TrackingBRAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F36AE427218A3900801F44 /* TrackingBRAppTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B1F36AE627218A3900801F44 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1D60A7A26D3068200BA428C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1D60A8126D3068200BA428C;
+			remoteInfo = TrackingBRApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B115919E271A049700046829 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -64,6 +75,8 @@
 		B1D60AAA26D3127000BA428C /* DTFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFButton.swift; sourceTree = "<group>"; };
 		B1D60AAC26D3127D00BA428C /* DTFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFLabel.swift; sourceTree = "<group>"; };
 		B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewModel.swift; sourceTree = "<group>"; };
+		B1F36AE227218A3900801F44 /* TrackingBRAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackingBRAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1F36AE427218A3900801F44 /* TrackingBRAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBRAppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +86,13 @@
 			files = (
 				B1992770271DDCE100987AD9 /* Atlantis in Frameworks */,
 				B1CDE450270A43FB0036CB3C /* Toast in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F36ADF27218A3900801F44 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D60A8426D3068200BA428C /* TrackingBRApp */,
+				B1F36AE327218A3900801F44 /* TrackingBRAppTests */,
 				B1D60A8326D3068200BA428C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -184,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D60A8226D3068200BA428C /* TrackingBRApp.app */,
+				B1F36AE227218A3900801F44 /* TrackingBRAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -264,6 +286,14 @@
 			name = Recursos;
 			sourceTree = "<group>";
 		};
+		B1F36AE327218A3900801F44 /* TrackingBRAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1F36AE427218A3900801F44 /* TrackingBRAppTests.swift */,
+			);
+			path = TrackingBRAppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -288,17 +318,39 @@
 			productReference = B1D60A8226D3068200BA428C /* TrackingBRApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B1F36AE127218A3900801F44 /* TrackingBRAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1F36AEA27218A3900801F44 /* Build configuration list for PBXNativeTarget "TrackingBRAppTests" */;
+			buildPhases = (
+				B1F36ADE27218A3900801F44 /* Sources */,
+				B1F36ADF27218A3900801F44 /* Frameworks */,
+				B1F36AE027218A3900801F44 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B1F36AE727218A3900801F44 /* PBXTargetDependency */,
+			);
+			name = TrackingBRAppTests;
+			productName = TrackingBRAppTests;
+			productReference = B1F36AE227218A3900801F44 /* TrackingBRAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B1D60A7A26D3068200BA428C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					B1D60A8126D3068200BA428C = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					B1F36AE127218A3900801F44 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = B1D60A8126D3068200BA428C;
 					};
 				};
 			};
@@ -320,6 +372,7 @@
 			projectRoot = "";
 			targets = (
 				B1D60A8126D3068200BA428C /* TrackingBRApp */,
+				B1F36AE127218A3900801F44 /* TrackingBRAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -331,6 +384,13 @@
 			files = (
 				B1D60A9226D3068300BA428C /* LaunchScreen.storyboard in Resources */,
 				B1D60A8F26D3068300BA428C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1F36AE027218A3900801F44 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +427,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B1F36ADE27218A3900801F44 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1F36AE527218A3900801F44 /* TrackingBRAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B1F36AE727218A3900801F44 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1D60A8126D3068200BA428C /* TrackingBRApp */;
+			targetProxy = B1F36AE627218A3900801F44 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B1D60A9026D3068300BA428C /* LaunchScreen.storyboard */ = {
@@ -535,6 +611,52 @@
 			};
 			name = Release;
 		};
+		B1F36AE827218A3900801F44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devpass.ViewCodeChallenge-RealEstateTests.TrackingBRAppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackingBRApp.app/TrackingBRApp";
+			};
+			name = Debug;
+		};
+		B1F36AE927218A3900801F44 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devpass.ViewCodeChallenge-RealEstateTests.TrackingBRAppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackingBRApp.app/TrackingBRApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -552,6 +674,15 @@
 			buildConfigurations = (
 				B1D60A9726D3068300BA428C /* Debug */,
 				B1D60A9826D3068300BA428C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1F36AEA27218A3900801F44 /* Build configuration list for PBXNativeTarget "TrackingBRAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1F36AE827218A3900801F44 /* Debug */,
+				B1F36AE927218A3900801F44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
