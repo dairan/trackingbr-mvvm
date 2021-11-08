@@ -38,18 +38,18 @@ class EncomendaDetalhesViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    Repositorio().verificar { resultado in
-      switch resultado  {
-
-        case .success(let rastreio):
-          self.rastreio = rastreio!
-          DispatchQueue.main.async {
-            self.rastreioTableView.reloadData()
-          }
-        case .failure(let erro):
-          print("==30===:  erro", erro)
-      }
-    }
+//    Repositorio().verificar { resultado in
+//      switch resultado  {
+//
+//        case .success(let rastreio):
+//          self.rastreio = rastreio!
+//          DispatchQueue.main.async {
+//            self.rastreioTableView.reloadData()
+//          }
+//        case .failure(let erro):
+//          print("==30===:  erro", erro)
+//      }
+//    }
   }
 
   // MARK: Private
@@ -84,14 +84,15 @@ extension EncomendaDetalhesViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    rastreio?.tracks.count ?? 0
+//    rastreio?.tracks.count ?? 0
+      0
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "EncomendaCellId", for: indexPath)
 
     var conteudo = cell.defaultContentConfiguration()
-    conteudo.text = rastreio?.tracks[indexPath.row].locale
+//    conteudo.text = rastreio?.tracks[indexPath.row].locale
 
     cell.contentConfiguration = conteudo
     return cell
