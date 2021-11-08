@@ -7,54 +7,99 @@
 
 import Foundation
 
+// MARK: - httpMetodo
+
+private enum httpMetodo: String {
+    case get = "GET"
+    case post = "POST"
+}
+
 // MARK: - ErroRepositorio
 
 enum ErroRepositorio: Error {
-  case urlInvalida
-  case dadosInvalidos
-  case erroGenerico
-  case erroDecodificacao
+    case urlInvalida
+    case dadosInvalidos
+    case erroGenerico
+    case erroDecodificacao
 }
 
 // MARK: - Repositorio
 
-class Repositorio {
-  // MARK: Internal
+final class Repositorio {
+    // MARK: Internal
 
-//  private let urlString = "https://hp-api.herokuapp.com/api/characters"
+    func obterDados() {
+        let config = URLSessionConfiguration.default
+        let sessao = URLSession(configuration: config, delegate: nil, delegateQueue: nil)
+        guard let url = URL(string: "https://api.frenet.com.br/tracking/trackinginfo") else { return }
 
-  func verificar(aoTerminar: @escaping (Result<Rastreio?, ErroRepositorio>) -> Void) {
-    guard let url = URL(string: urlString) else { return aoTerminar(.failure(.urlInvalida)) }
+        var requisicao = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 0)
+        requisicao.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        requisicao.addValue("application/json", forHTTPHeaderField: "Accept")
+        requisicao.addValue("583DBD18REA52R4F92RB6B4R407280A80A9F", forHTTPHeaderField: "token")
 
-    let tarefa = URLSession.shared.dataTask(with: url) { dados, resposta, erro in
-      if let erro = erro {
-        aoTerminar(.failure(.erroGenerico))
-      }
+        let requisicaoBody = Requisicao(OrderNumber: "",
+                                        ShippingServiceCode: "04227",
+                                        InvoiceNumber: "",
+//                                        TrackingNumber: "LB466560165SE",
+                                        TrackingNumber: "NX409895735BR",
+                                        InvoiceSerie: "",
+                                        RecipientDocument: "")
 
-      guard let dados = dados else { return aoTerminar(.failure(.dadosInvalidos)) }
+        guard let jsonDados = converterJsonParaDados(requisicao: requisicaoBody) else { return }
 
-      let rastreio = self.decodificar(os: dados)
+        requisicao.httpBody = jsonDados
+        requisicao.httpMethod = httpMetodo.post.rawValue
 
-      guard let rastreio = rastreio else { return aoTerminar(.failure(.erroDecodificacao)) }
-      aoTerminar(.success(rastreio))
+        let tarefa = sessao.dataTask(with: requisicao) { dados, resposta, erro in
+            if let erro = erro {
+                print("==36===:  erro", erro)
+            }
+
+            guard let dados = dados else { return }
+
+            let resultado: Rastreio? = dados.decodificar()
+            guard let rastreio = resultado else { return }
+            print("==26===:  rastreio", rastreio)
+            rastreio.trackingEvents?.forEach { print($0.eventDateTime) }
+        }
+        tarefa.resume()
     }
 
-    tarefa.resume()
-  }
+    // MARK: Private
 
-  func decodificar(os dados: Data) -> Rastreio? {
-    let decodificador = JSONDecoder()
-    do {
-      let rastreios = try decodificador.decode([Rastreio].self, from: dados)
-      return rastreios.first
-    } catch {
-      print("==49===:  error", error)
-//      return ErroRepositorio.erroDecodificacao
-      return nil
+
+    private func converterJsonParaDados(requisicao: Requisicao) -> Data? {
+        do {
+            return try JSONEncoder().encode(requisicao)
+        } catch {
+            print("==6===:  error", error)
+            return nil
+        }
     }
-  }
+}
 
-  // MARK: Private
+extension DateFormatter {
+    static let converterStringParaData: DateFormatter = {
+        let formatador = DateFormatter()
+        formatador.dateFormat = "dd/MM/yyyy hh:mm"
+        formatador.calendar = Calendar(identifier: .iso8601)
+        formatador.timeZone = TimeZone(secondsFromGMT: 0)
+        formatador.locale = Locale.current
+        return formatador
+    }()
+}
 
-  private var urlString = "https://trackingbr.dairan.com/v1/codigo/NX409895735BR"
+extension Data {
+    func decodificar<T: Codable>() -> T? {
+        let decodificador = JSONDecoder()
+        decodificador.dateDecodingStrategy = .formatted(.converterStringParaData)
+        do {
+            let resultado = try decodificador.decode(T.self, from: self)
+            return resultado
+        } catch {
+            print("==49===:  error", error)
+            return nil
+        }
+    }
 }

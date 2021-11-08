@@ -17,8 +17,17 @@ protocol AdicionarEditarViewModelDelegate: AnyObject {
 // MARK: - AdicionarEditarViewModel
 
 class AdicionarEditarViewModel {
+  // MARK: Internal
 
-  private var encomenda: AdicionarEditar?
+  var atualizar: (() -> Void)?
+
+  // MARK: Private
+
+  var encomenda: EncomendaParaAdicionarDTO? {
+    didSet {
+      self.atualizar?()
+    }
+  }
 }
 
 // MARK: AdicionarEditarViewModelDelegate

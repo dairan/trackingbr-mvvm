@@ -42,6 +42,8 @@ class GerenciadorCoreData {
          */
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
+//        container.viewContext.mergePolicy = NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType
+        container.viewContext.mergePolicy = NSMergePolicyType.mergeByPropertyStoreTrumpMergePolicyType
     })
     return container
   }()
@@ -79,7 +81,7 @@ class GerenciadorCoreData {
     }
   }
 
-  func adicionar(_ encomenda: AdicionarEditar) {
+  func adicionar(_ encomenda: EncomendaParaAdicionarDTO) {
     let encomendaCD = Encomenda(context: contexto)
     encomendaCD.codigo = encomenda.codigo
     encomendaCD.descricao = encomenda.descricao
