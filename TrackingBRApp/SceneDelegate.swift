@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = UIWindow(windowScene: cena)
     let repositorio = Repositorio()
     let principalVM = PrincipalViewModel(coreData: coredata, repositorio: repositorio)
-    let principalVC = PrincipalViewController(com: principalVM)
+      let principalVC = PrincipalViewController(com: principalVM, coredata: coredata)
     let nav = UINavigationController(rootViewController: principalVC)
     nav.navigationBar.prefersLargeTitles = true
     nav.navigationBar.tintColor = .systemMint

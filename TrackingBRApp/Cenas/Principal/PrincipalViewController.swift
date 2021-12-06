@@ -14,23 +14,12 @@ class PrincipalViewController: UIViewController {
     // MARK: Lifecycle
 
     init(com viewModel: PrincipalViewModel,
-         coredata: CoreDataManager = CoreDataManager())
+         coredata: CoreDataManager)
     {
         self.viewModel = viewModel
         self.coredata = coredata
         super.init(nibName: nil, bundle: nil)
-//        buscarCoreData()
     }
-
-//    private func buscarCoreData() {
-//        coredata.fetchResultController.delegate = self
-//        do {
-//            try coreData.fetchResultController.performFetch()
-//
-//        } catch  {
-//            print("==27===:  error", error)
-//        }
-//    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -94,14 +83,15 @@ class PrincipalViewController: UIViewController {
 
 extension PrincipalViewController: PrincipalViewDelegate {
     func encomendaSelecionada(_ encomenda: Encomenda) {
-        
+
     }
 
     func selecionada(encomendaNo indexPath: IndexPath) {
+
     }
 
     func selecionouRowAt(_ indexPath: IndexPath) {
-//        viewModel.encomendaSelecionada =
+
     }
 
     func editarSelecionada(_ encomenda: Encomenda) {
@@ -122,16 +112,3 @@ extension PrincipalViewController: PrincipalViewDelegate {
         show(vc, sender: self)
     }
 }
-
-// MARK: - NSFetchedResultsControllerDelegate
-
-//    extension PrincipalViewModel: NSFetchedResultsControllerDelegate {
-//        func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-//                        didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference)
-//        {
-//        var diferenca = NSDiffableDataSourceSnapshot<String, Encomenda>()
-//        diferenca.appendSections(["aa"])
-//        diferenca.appendItems(viewModel.encomendas, toSection: nil)
-//        fonteDados?.apply(diferenca)
-//        }
-//    }

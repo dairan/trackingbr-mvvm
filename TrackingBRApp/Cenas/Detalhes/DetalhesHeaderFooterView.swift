@@ -33,7 +33,6 @@ class DetalhesHeaderFooterView: UITableViewHeaderFooterView {
     backgroundColor = .red
     contentView.backgroundColor = .systemOrange
     contentView.addSubview(codigoLabel)
-//    addSubview(codigoLabel)
   }
 
   private func configurarConstraits() {

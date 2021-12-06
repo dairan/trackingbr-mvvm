@@ -42,8 +42,6 @@ class AdicionarEditarViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        obterDados()
     }
 
     // MARK: Private
@@ -68,19 +66,6 @@ class AdicionarEditarViewController: UIViewController {
 
     private var encomendaParaSalvar: EncomendaParaSalvarDTO?
     private var encomendaSelecionada: Encomenda?
-
-    private func obterDados() {
-//        let repositorio = Repositorio()
-//    repositorio.verificar(aoTerminar: { resultado in
-//      switch resultado {
-//      case let .success(rastreio):
-//        print("==28===:  rastreio", rastreio ?? "")
-//      case let .failure(erro):
-//        print("==33===:  erro", erro)
-//      }
-//    })
-//        repositorio.obterDados()
-    }
 
     private func navBarSetup() {
         navigationItem.leftBarButtonItem = cancelarButtonItem
