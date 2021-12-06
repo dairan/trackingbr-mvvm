@@ -46,22 +46,6 @@ class PrincipalView: UIView {
     private var coredata: CoreDataManager
     private var fonteDados: UITableViewDiffableDataSource<String, Encomenda>?
 
-    //  private lazy var fetchResultController: NSFetchedResultsController<Encomenda> = {
-//    let fetchRequest: NSFetchRequest<Encomenda> = Encomenda.fetchRequest()
-//
-//    let ordenador = NSSortDescriptor(key: #keyPath(Encomenda.adicionadoEm), ascending: false)
-//    fetchRequest.sortDescriptors = [ordenador]
-//
-//    let nsfrc = NSFetchedResultsController(fetchRequest: fetchRequest,
-//                                           managedObjectContext: coredata.contexto,
-//                                           sectionNameKeyPath: nil,
-//                                           cacheName: "testeCache")
-//    nsfrc.delegate = self
-//
-//    return nsfrc
-//
-    //  }()
-
     private lazy var listagemTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
