@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B115919F271A049700046829 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B115919E271A049700046829 /* APIError.swift */; };
 		B12154E22738274B00E4A667 /* Requisicao.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12154E12738274B00E4A667 /* Requisicao.swift */; };
 		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
 		B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */ = {isa = PBXBuildFile; fileRef = B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */; };
-		B1606D452720EF7900FF575D /* EncomendaParaAdicionarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* EncomendaParaAdicionarDTO.swift */; };
+		B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */; };
 		B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D4B2721838F00FF575D /* GrandeTextField.swift */; };
 		B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */; };
 		B182FC8627051A4200914A46 /* DetalhesHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */; };
 		B1992770271DDCE100987AD9 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = B199276F271DDCE100987AD9 /* Atlantis */; };
-		B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */; };
+		B19C641826E797A100BA03F4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C641726E797A100BA03F4 /* CoreDataManager.swift */; };
 		B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */; };
 		B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */; };
 		B19C642526E8095000BA03F4 /* TextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642426E8095000BA03F4 /* TextFieldFactory.swift */; };
@@ -49,15 +48,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B115919E271A049700046829 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		B12154E12738274B00E4A667 /* Requisicao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requisicao.swift; sourceTree = "<group>"; };
 		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
 		B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TrackingBRApp.docc; sourceTree = "<group>"; };
-		B1606D442720EF7900FF575D /* EncomendaParaAdicionarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaParaAdicionarDTO.swift; sourceTree = "<group>"; };
+		B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaParaSalvarDTO.swift; sourceTree = "<group>"; };
 		B1606D4B2721838F00FF575D /* GrandeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandeTextField.swift; sourceTree = "<group>"; };
 		B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaDetalhesViewController.swift; sourceTree = "<group>"; };
 		B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesHeaderFooterView.swift; sourceTree = "<group>"; };
-		B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerenciadorCoreData.swift; sourceTree = "<group>"; };
+		B19C641726E797A100BA03F4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EncomandasList.xcdatamodel; sourceTree = "<group>"; };
 		B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewController.swift; sourceTree = "<group>"; };
 		B19C642426E8095000BA03F4 /* TextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFactory.swift; sourceTree = "<group>"; };
@@ -101,52 +99,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B11591A0271A04AE00046829 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B115919E271A049700046829 /* APIError.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		B154303E26EAB2BB00772F73 /* Configuracoes */ = {
 			isa = PBXGroup;
 			children = (
 				B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */,
 			);
 			path = Configuracoes;
-			sourceTree = "<group>";
-		};
-		B1606D462720EF7D00FF575D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B1606D442720EF7900FF575D /* EncomendaParaAdicionarDTO.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		B1606D472720EF8900FF575D /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		B1606D482720EF9500FF575D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		B1606D492720EFA200FF575D /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		B1606D4A2721828A00FF575D /* CustomViews */ = {
@@ -169,7 +127,7 @@
 		B19C641F26E79A4200BA03F4 /* Armazenamento */ = {
 			isa = PBXGroup;
 			children = (
-				B19C641726E797A100BA03F4 /* GerenciadorCoreData.swift */,
+				B19C641726E797A100BA03F4 /* CoreDataManager.swift */,
 				B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */,
 			);
 			path = Armazenamento;
@@ -178,10 +136,10 @@
 		B19C642226E7C99800BA03F4 /* AdicionarEditar */ = {
 			isa = PBXGroup;
 			children = (
-				B1606D462720EF7D00FF575D /* Models */,
-				B1606D472720EF8900FF575D /* ViewModels */,
-				B1606D482720EF9500FF575D /* Views */,
-				B1606D492720EFA200FF575D /* Controllers */,
+				B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */,
+				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
+				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
+				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
 			);
 			name = AdicionarEditar;
 			sourceTree = "<group>";
@@ -240,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				B1D60AA126D307F100BA428C /* Repositorio.swift */,
-				B11591A0271A04AE00046829 /* Models */,
 				B12154E12738274B00E4A667 /* Requisicao.swift */,
 			);
 			path = Servicos;
@@ -409,7 +366,7 @@
 				B19C642526E8095000BA03F4 /* TextFieldFactory.swift in Sources */,
 				B1D60A8A26D3068200BA428C /* PrincipalViewController.swift in Sources */,
 				B1D60AA426D309D400BA428C /* PrincipalViewModel.swift in Sources */,
-				B19C641826E797A100BA03F4 /* GerenciadorCoreData.swift in Sources */,
+				B19C641826E797A100BA03F4 /* CoreDataManager.swift in Sources */,
 				B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */,
 				B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */,
 				B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */,
@@ -417,7 +374,7 @@
 				B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */,
 				B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */,
 				B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */,
-				B1606D452720EF7900FF575D /* EncomendaParaAdicionarDTO.swift in Sources */,
+				B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */,
 				B182FC8627051A4200914A46 /* DetalhesHeaderFooterView.swift in Sources */,
 				B1D60AA026D3079400BA428C /* Rastreio.swift in Sources */,
 				B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */,
@@ -427,7 +384,6 @@
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
 				B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */,
 				B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */,
-				B115919F271A049700046829 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

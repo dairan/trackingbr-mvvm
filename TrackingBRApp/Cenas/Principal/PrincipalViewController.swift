@@ -5,84 +5,133 @@
 //  Created by Dairan on 22/08/21.
 //
 
-//import CoreData
+import CoreData
 import UIKit
 
 // MARK: - PrincipalViewController
 
 class PrincipalViewController: UIViewController {
-  // MARK: Lifecycle
+    // MARK: Lifecycle
 
-  private let coredata: GerenciadorCoreData
+    init(com viewModel: PrincipalViewModel,
+         coredata: CoreDataManager = CoreDataManager())
+    {
+        self.viewModel = viewModel
+        self.coredata = coredata
+        super.init(nibName: nil, bundle: nil)
+//        buscarCoreData()
+    }
 
-  init(com viewModel: PrincipalViewModel, coredata: GerenciadorCoreData = GerenciadorCoreData()) {
-    self.viewModel = viewModel
-    self.coredata = coredata
-    super.init(nibName: nil, bundle: nil)
-  }
+//    private func buscarCoreData() {
+//        coredata.fetchResultController.delegate = self
+//        do {
+//            try coreData.fetchResultController.performFetch()
+//
+//        } catch  {
+//            print("==27===:  error", error)
+//        }
+//    }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-  // MARK: Internal
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+        configurarNavBar()
+    }
 
-    configurarNavBar()
-  }
+    override func loadView() {
+        principalView.delegate = self
+        view = principalView
+    }
 
-  override func loadView() {
-    principalView.delegate = self
-    view = principalView
-  }
+    // MARK: Private
 
+    private let coredata: CoreDataManager
+    private let viewModel: PrincipalViewModel
 
-  private let viewModel: PrincipalViewModel
+    private lazy var principalView: PrincipalView = {
+        let view = PrincipalView(coredata: coredata)
+        return view
+    }()
 
-  private lazy var principalView: PrincipalView = {
-    let view = PrincipalView(coredata: coredata)
-    return view
-  }()
+    private func configurarNavBar() {
+        let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                            target: self,
+                                            action: #selector(adicionarButtonTapped))
+        navigationItem.rightBarButtonItem = addButtonItem
+        navigationItem.title = "Listagem"
 
-  private func configurarNavBar() {
-    let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                        target: self,
-                                        action: #selector(adicionarTapped))
-    navigationItem.rightBarButtonItem = addButtonItem
-    navigationItem.title = "Listagem"
+        let icone = UIImage(systemName: "gearshape.fill")!
+        let configuracoesButtonItem = UIBarButtonItem(image: icone,
+                                                      style: .done,
+                                                      target: self,
+                                                      action: #selector(configuracoesTapped))
+        navigationItem.leftBarButtonItem = configuracoesButtonItem
+    }
 
-    let icone = UIImage(systemName: "gearshape.fill")!
-    let configuracoesButtonItem = UIBarButtonItem(image: icone,
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(configuracoesTapped))
-    navigationItem.leftBarButtonItem = configuracoesButtonItem
-  }
+    @objc private func adicionarButtonTapped() {
+        let vc = AdicionarEditarViewController(coredata: coredata)
+        vc.title = "Adicionar"
 
-  @objc private func adicionarTapped() {
-    let vc = AdicionarEditarViewController(coredata: coredata)
-    vc.title = "Adicionar/ Editar"
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.tintColor = .white
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+        ]
+        showDetailViewController(nav, sender: self)
+    }
 
-    let nav = UINavigationController(rootViewController: vc)
-    nav.navigationBar.tintColor = .white
-    nav.navigationBar.titleTextAttributes = [
-      NSAttributedString.Key.foregroundColor: UIColor.white,
-    ]
-    present(nav, animated: true)
-  }
-
-  @objc private func configuracoesTapped() {
-    let vc = ConfiguracoesViewController()
-    showDetailViewController(vc, sender: nil)
-  }
+    @objc private func configuracoesTapped() {
+        let vc = ConfiguracoesViewController()
+        showDetailViewController(vc, sender: nil)
+    }
 }
+
+// MARK: - PrincipalViewDelegate
 
 extension PrincipalViewController: PrincipalViewDelegate {
+    func encomendaSelecionada(_ encomenda: Encomenda) {
+        
+    }
 
-  func encomendaSelecionada(_ encomenda: Encomenda) {
-    let vc = EncomendaDetalhesViewController(encomenda: encomenda)
-    navigationController?.pushViewController(vc, animated: true)
-  }
+    func selecionada(encomendaNo indexPath: IndexPath) {
+    }
+
+    func selecionouRowAt(_ indexPath: IndexPath) {
+//        viewModel.encomendaSelecionada =
+    }
+
+    func editarSelecionada(_ encomenda: Encomenda) {
+        let vc = AdicionarEditarViewController(coredata: coredata, encomendaSelecionada: encomenda)
+        vc.title = "Editar"
+
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.tintColor = .white
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+        ]
+
+        showDetailViewController(nav, sender: self)
+    }
+
+    func exibirSelecionada(_ encomenda: Encomenda) {
+        let vc = EncomendaDetalhesViewController(encomenda: encomenda)
+        show(vc, sender: self)
+    }
 }
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+//    extension PrincipalViewModel: NSFetchedResultsControllerDelegate {
+//        func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+//                        didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference)
+//        {
+//        var diferenca = NSDiffableDataSourceSnapshot<String, Encomenda>()
+//        diferenca.appendSections(["aa"])
+//        diferenca.appendItems(viewModel.encomendas, toSection: nil)
+//        fonteDados?.apply(diferenca)
+//        }
+//    }

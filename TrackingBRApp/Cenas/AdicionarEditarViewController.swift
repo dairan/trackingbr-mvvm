@@ -12,8 +12,9 @@ import UIKit
 class AdicionarEditarViewController: UIViewController {
     // MARK: Lifecycle
 
-    init(coredata: GerenciadorCoreData) {
+    init(coredata: CoreDataManager, encomendaSelecionada encomenda: Encomenda? = nil ) {
         self.coredata = coredata
+        self.encomendaSelecionada = encomenda
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,8 +33,11 @@ class AdicionarEditarViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         navBarSetup()
+
+        guard let encomenda = encomendaSelecionada else { return }
+        salvarButtonItem.isEnabled = true
+        addEditarView.configurar(encomenda)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -44,10 +48,8 @@ class AdicionarEditarViewController: UIViewController {
 
     // MARK: Private
 
-    private var coredata: GerenciadorCoreData
-    private let viewModel = AdicionarEditarViewModel()
-    private lazy var addEditarView = AdicionarEditarView(with: viewModel)
-    private var codigosEncontrados: [String]?
+    private var coredata: CoreDataManager
+    private lazy var addEditarView = AdicionarEditarView()
 
     private let cancelarButtonItem: UIBarButtonItem = {
         let barButton = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -64,10 +66,11 @@ class AdicionarEditarViewController: UIViewController {
         return barButton
     }()
 
-    private var encomendaParaSalvar: EncomendaParaAdicionarDTO?
+    private var encomendaParaSalvar: EncomendaParaSalvarDTO?
+    private var encomendaSelecionada: Encomenda?
 
     private func obterDados() {
-        let repositorio = Repositorio()
+//        let repositorio = Repositorio()
 //    repositorio.verificar(aoTerminar: { resultado in
 //      switch resultado {
 //      case let .success(rastreio):
@@ -76,7 +79,7 @@ class AdicionarEditarViewController: UIViewController {
 //        print("==33===:  erro", erro)
 //      }
 //    })
-        repositorio.obterDados()
+//        repositorio.obterDados()
     }
 
     private func navBarSetup() {
@@ -93,9 +96,6 @@ class AdicionarEditarViewController: UIViewController {
     }
 
     @objc private func salvarTapped() {
-//    guard encomendaParaSalvar.codigo.isEmpty == false else { return }
-//    coredata.adicionar(encomenda: encomendaParaSalvar)
-
         guard let encomendaParaSalvar = encomendaParaSalvar else { return }
         coredata.adicionar(encomendaParaSalvar)
         dispensarView()
@@ -105,7 +105,7 @@ class AdicionarEditarViewController: UIViewController {
 // MARK: - AdicionarEditarViewController
 
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
-    func salvarEncomenda(_ encomenda: EncomendaParaAdicionarDTO) {
+    func salvarEncomenda(_ encomenda: EncomendaParaSalvarDTO) {
         self.encomendaParaSalvar = encomenda
     }
 

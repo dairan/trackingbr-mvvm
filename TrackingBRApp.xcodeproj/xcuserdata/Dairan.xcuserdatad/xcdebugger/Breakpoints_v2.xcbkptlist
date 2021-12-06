@@ -7,32 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FD5C8BB6-871F-469A-B212-F4C842A1BBFF"
-            shouldBeEnabled = "No"
+            uuid = "144E1057-BF1C-4D02-9553-AE7A4A85F8A9"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TrackingBRApp/Cenas/Views/AdicionarEditarView.swift"
+            filePath = "TrackingBRApp/Cenas/Principal/PrincipalViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "encomendaSelecionada(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C0D2C9CE-A0D8-4501-8281-86B295059E5D"
-            shouldBeEnabled = "No"
+            uuid = "76F38F0A-0EE4-4C34-88B8-F80D145401F4"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TrackingBRApp/Cenas/Controllers/AdicionarEditarViewController.swift"
+            filePath = "TrackingBRApp/Cenas/Principal/PrincipalViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "salvarTapped()"
+            landmarkName = "selecionada(encomendaNo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B05FADF-7237-4741-A788-395A4E420FB1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TrackingBRApp/Cenas/Principal/PrincipalViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "selecionouRowAt(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
