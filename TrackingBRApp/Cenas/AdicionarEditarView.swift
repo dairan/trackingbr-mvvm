@@ -11,7 +11,7 @@ import UIKit
 // MARK: - AdicionarEditarViewDelegate
 
 protocol AdicionarEditarViewDelegate: AnyObject {
-    func salvarEncomenda(_ encomenda: EncomendaParaAdicionarDTO)
+    func salvarEncomenda(_ encomenda: EncomendaParaSalvarDTO)
     func fecharCalendario()
     func habilitarBotaoSalvar(_ string: Bool)
 }
@@ -25,8 +25,8 @@ class AdicionarEditarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(with viewModel: AdicionarEditarViewModelDelegate) {
-        self.viewModel = viewModel
+//    init(with viewModel: AdicionarEditarViewModelDelegate) {
+    init() {
         super.init(frame: .zero)
 
         configurar()
@@ -42,8 +42,16 @@ class AdicionarEditarView: UIView {
 
     weak var delegate: AdicionarEditarViewDelegate?
 
+    var encomenda = EncomendaParaSalvarDTO()
+
     override func didAddSubview(_ subview: UIView) {
 //        print("1 - didAddSubview - view vai didMoveToWindow")
+    }
+
+    func configurar(_ encomenda: Encomenda) {
+        codigoTextField.text = encomenda.codigo
+        codigoTextField.isEnabled = false
+        descricaoTextField.text = encomenda.descricao
     }
 
     override func didMoveToWindow() {
@@ -57,9 +65,6 @@ class AdicionarEditarView: UIView {
 
     // MARK: Private
 
-    private var encomenda = EncomendaParaAdicionarDTO()
-
-    private let viewModel: AdicionarEditarViewModelDelegate
     //  private var codigosEncontrados: [String] = []
 
     private lazy var textosStackView: UIStackView = {
@@ -102,9 +107,9 @@ class AdicionarEditarView: UIView {
     }()
 
     private func validarRegex(_ codigo: String) -> Bool {
-        let regexFormato = "([A-Z]{2})([0-9]{9})([A-Z]{2})"
-        let range = NSRange(location: 0, length: codigo.utf16.count)
-        let regex = try! NSRegularExpression(pattern: regexFormato, options: [.caseInsensitive, .allowCommentsAndWhitespace])
+//        let regexFormato = "([A-Z]{2})([0-9]{9})([A-Z]{2})"
+//        let range = NSRange(location: 0, length: codigo.utf16.count)
+//        let regex = try! NSRegularExpression(pattern: regexFormato, options: [.caseInsensitive, .allowCommentsAndWhitespace])
 //    let resultado   codigo, options: [], range: range)
 //    var codigosUnicos: Set<String> = []
 
@@ -135,11 +140,11 @@ class AdicionarEditarView: UIView {
     private func colarCodigo() {
         if let codigo = UIPasteboard.general.string?.trimmingCharacters(in: .whitespacesAndNewlines) {
             let resultado = validarRegex(codigo)
+            delegate?.habilitarBotaoSalvar(resultado)
             switch resultado {
                 case true:
                     let toast = Toast.text("Código colado da área de transferência.")
                     toast.show()
-                    delegate?.habilitarBotaoSalvar(true)
                     codigoTextField.text = codigo
                 case false:
                     break
@@ -153,9 +158,10 @@ class AdicionarEditarView: UIView {
     }
 
     private func configurar() {
-        print("2 ++++ incializado \(type(of: self)) ")
+//        print("2 ++++ incializado \(type(of: self)) ")
         accessibilityIdentifier = "Adicionar-Editar-View"
         backgroundColor = .systemMint
+        codigoTextField.becomeFirstResponder()
     }
 
     private func adicionarSubviews() {
@@ -178,62 +184,53 @@ class AdicionarEditarView: UIView {
         ])
     }
 
-    private func validar(se textField: UITextField, _ temTexto: Bool) -> Bool {
-        if temTexto {
-            textField.layer.borderColor = UIColor.green.cgColor
-            return true
-        } else {
-            textField.layer.borderColor = UIColor.red.cgColor
-            return false
-        }
-    }
-
-    private func validar(_ textField: UITextField) -> (Bool, String?) {
-        guard let texto = codigoTextField.text else { return (false, nil) }
-
-        if textField == codigoTextField {
-            return (texto.count >= 6, "Sua senha tem menos de 6 letars")
-        }
-        return (!texto.isEmpty, "este campo nõa pode ser zero")
-    }
+//    private func validar(se textField: UITextField, _ temTexto: Bool) -> Bool {
+//        if temTexto {
+//            textField.layer.borderColor = UIColor.green.cgColor
+//            return true
+//        } else {
+//            textField.layer.borderColor = UIColor.red.cgColor
+//            return false
+//        }
+//    }
 }
 
 // MARK: - AdicionarEditarView
 
 extension AdicionarEditarView: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        switch textField {
-//            case codigoTextField:
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+            case codigoTextField:
 //                let (validacao, mensagem) = validar(codigoTextField)
 //                if validacao {
 //                    descricaoTextField.becomeFirstResponder()
 //                }
-//                codigoTextField.layer.borderWidth = 1.0
-//                codigoTextField.layer.borderColor = UIColor.red.cgColor
-//
-//            default: descricaoTextField.resignFirstResponder()
+                codigoTextField.layer.borderWidth = 1.0
+                codigoTextField.layer.borderColor = UIColor.red.cgColor
+
+            default: descricaoTextField.resignFirstResponder()
+        }
+        return false
+    }
+
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        switch textField {
+//            case codigoTextField:
+//                if let texto = textField.text {
+//                    encomenda.codigo = texto
+//                }
+//            case descricaoTextField:
+//                if let texto = textField.text {
+//                    encomenda.descricao = texto
+//                }
+//            default:
+//                break
 //        }
-//        return false
 //    }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField {
-            case codigoTextField:
-                if let texto = textField.text {
-                    encomenda.codigo = texto
-                }
-            case descricaoTextField:
-                if let texto = textField.text {
-                    encomenda.descricao = texto
-                }
-            default:
-                break
-        }
-    }
-
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        true
-    }
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        true
+//    }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
 //        print("==56===:  textFieldDidBeginEditing", textFieldDidBeginEditing)
@@ -241,7 +238,18 @@ extension AdicionarEditarView: UITextFieldDelegate {
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
 //        print("==4===:  textFieldShouldEndEditing", textFieldShouldEndEditing)
-        true
+        guard let texto = textField.text else { return false }
+        switch textField {
+            case codigoTextField:
+                encomenda.codigo = texto
+                delegate?.salvarEncomenda(encomenda)
+                return true
+            case descricaoTextField:
+                encomenda.descricao = texto
+                return true
+            default:
+                return false
+        }
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -284,22 +292,22 @@ extension AdicionarEditarView: UITextFieldDelegate {
                 }
 
                 delegate?.habilitarBotaoSalvar(validacao)
+                delegate?.salvarEncomenda(encomenda)
 
                 guard validacao else { return true }
 
                 textField.text = textoNovo
-                encomenda.codigo = textoNovo
 
                 descricaoTextField.becomeFirstResponder()
                 return false
             default:
+
+                encomenda.descricao = textoNovo
+                delegate?.salvarEncomenda(encomenda)
+
                 break
         }
-        delegate?.salvarEncomenda(encomenda)
         return true
-    }
-
-    private func validarTamanho() {
     }
 }
 
