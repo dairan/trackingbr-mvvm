@@ -5,84 +5,137 @@
 //  Created by Dairan on 22/08/21.
 //
 
-//import CoreData
+import CoreData
 import UIKit
 
 // MARK: - PrincipalViewController
 
 class PrincipalViewController: UIViewController {
-  // MARK: Lifecycle
+    // MARK: Lifecycle
 
-  private let coredata: GerenciadorCoreData
+    init(com viewModel: PrincipalViewModel,
+         coredata: CoreDataManager)
+    {
+        self.viewModel = viewModel
+        self.coredata = coredata
+        super.init(nibName: nil, bundle: nil)
+    }
 
-  init(com viewModel: PrincipalViewModel, coredata: GerenciadorCoreData = GerenciadorCoreData()) {
-    self.viewModel = viewModel
-    self.coredata = coredata
-    super.init(nibName: nil, bundle: nil)
-  }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-  // MARK: Internal
+        configurarNavBar()
+    }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func loadView() {
+        principalView.delegate = self
+        view = principalView
+    }
 
-    configurarNavBar()
-  }
+    // MARK: Private
 
-  override func loadView() {
-    principalView.delegate = self
-    view = principalView
-  }
+    private let coredata: CoreDataManager
+    private let viewModel: PrincipalViewModel
 
+    private lazy var principalView: PrincipalView = {
+        let view = PrincipalView(coredata: coredata)
+        return view
+    }()
 
-  private let viewModel: PrincipalViewModel
+    private lazy var carregandoView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
 
-  private lazy var principalView: PrincipalView = {
-    let view = PrincipalView(coredata: coredata)
-    return view
-  }()
+    private func carregandoExibir() {
+        view.addSubview(carregandoView)
+        NSLayoutConstraint.activate([
+            carregandoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            carregandoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        carregandoView.startAnimating()
+    }
 
-  private func configurarNavBar() {
-    let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                        target: self,
-                                        action: #selector(adicionarTapped))
-    navigationItem.rightBarButtonItem = addButtonItem
-    navigationItem.title = "Listagem"
+    private func carregandoOcultar() {
+        carregandoView.stopAnimating()
+    }
 
-    let icone = UIImage(systemName: "gearshape.fill")!
-    let configuracoesButtonItem = UIBarButtonItem(image: icone,
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(configuracoesTapped))
-    navigationItem.leftBarButtonItem = configuracoesButtonItem
-  }
+    private func configurarNavBar() {
+        let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                            target: self,
+                                            action: #selector(adicionarButtonTapped))
+        navigationItem.rightBarButtonItem = addButtonItem
+        navigationItem.title = "Listagem"
 
-  @objc private func adicionarTapped() {
-    let vc = AdicionarEditarViewController(coredata: coredata)
-    vc.title = "Adicionar/ Editar"
+        let icone = UIImage(systemName: "gearshape.fill")!
+        let configuracoesButtonItem = UIBarButtonItem(image: icone,
+                                                      style: .done,
+                                                      target: self,
+                                                      action: #selector(configuracoesTapped))
+        navigationItem.leftBarButtonItem = configuracoesButtonItem
+    }
 
-    let nav = UINavigationController(rootViewController: vc)
-    nav.navigationBar.tintColor = .white
-    nav.navigationBar.titleTextAttributes = [
-      NSAttributedString.Key.foregroundColor: UIColor.white,
-    ]
-    present(nav, animated: true)
-  }
+    @objc private func adicionarButtonTapped() {
+        let vc = AdicionarEditarViewController(coredata: coredata)
+        vc.title = "Adicionar"
 
-  @objc private func configuracoesTapped() {
-    let vc = ConfiguracoesViewController()
-    showDetailViewController(vc, sender: nil)
-  }
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.tintColor = .white
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+        ]
+        showDetailViewController(nav, sender: self)
+    }
+
+    @objc private func configuracoesTapped() {
+        let vc = ConfiguracoesViewController()
+        showDetailViewController(vc, sender: nil)
+    }
 }
 
-extension PrincipalViewController: PrincipalViewDelegate {
+// MARK: - PrincipalViewDelegate
 
-  func encomendaSelecionada(_ encomenda: Encomenda) {
-    let vc = EncomendaDetalhesViewController(encomenda: encomenda)
-    navigationController?.pushViewController(vc, animated: true)
-  }
+extension PrincipalViewController: PrincipalViewDelegate {
+    func encomendaSelecionada(_ encomenda: Encomenda) {
+        let viewModelDetalhes = DetalhesViewModel(encomenda: encomenda)
+        self.carregandoExibir()
+
+        viewModelDetalhes.carregamentoIniciado = {
+            
+        }
+
+        viewModelDetalhes.carregamentoFinalizadoSucesso = {
+            self.carregandoOcultar()
+            let viewController = EncomendaDetalhesViewController(com: viewModelDetalhes)
+            self.show(viewController, sender: self)
+        }
+
+        viewModelDetalhes.carregamentoFinalizadoErro = { erro in
+            print("==52===:  erro", erro)
+            self.carregandoOcultar()
+        }
+    }
+
+    func selecionada(encomendaNo indexPath: IndexPath) {}
+
+    func selecionouRowAt(_: IndexPath) {}
+
+    func editarSelecionada(_ encomenda: Encomenda) {
+        let vc = AdicionarEditarViewController(coredata: coredata, encomendaSelecionada: encomenda)
+        vc.title = "Editar"
+
+        let nav = UINavigationController(rootViewController: vc)
+        nav.navigationBar.tintColor = .white
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+        ]
+
+        showDetailViewController(nav, sender: self)
+    }
 }
