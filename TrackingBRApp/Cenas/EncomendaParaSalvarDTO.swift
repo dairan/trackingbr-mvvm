@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AdicionarEditar {
+struct EncomendaParaSalvarDTO {
   var codigo: String?
   var descricao: String?
   var data: Date? = Date()

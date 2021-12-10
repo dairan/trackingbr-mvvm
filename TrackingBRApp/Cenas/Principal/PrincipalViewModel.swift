@@ -5,43 +5,36 @@
 //  Created by Dairan on 22/08/21.
 //
 
+import CoreData
 import Foundation
 
 // MARK: - PrincipalViewModel
 
 class PrincipalViewModel {
-  // MARK: Lifecycle
+    // MARK: Lifecycle
 
-  init(coreData: GerenciadorCoreData, repositorio: Repositorio) {
-    self.gerenciadorCoreData = coreData
-    self.repositorio = repositorio
-//    obterDados()
-  }
-
-  // MARK: Internal
-
-  var atualizarView: (() -> Void)?
-
-  var rastreio: Rastreio? {
-    didSet {
-      atualizarView?()
+    init(coreData: CoreDataManager) {
+        self.coreData = coreData
     }
-  }
 
-  // MARK: Private
+    // MARK: Internal
 
-  private var repositorio: Repositorio
-  private var gerenciadorCoreData: GerenciadorCoreData
+    var atualizarView: (() -> Void)?
+    var encomendas: [Encomenda]?
 
-  private func obterDados() {
-    repositorio.verificar(aoTerminar: { resultado in
-      switch resultado {
-      case let .success(rastreio):
-        print("==28===:  rastreio", rastreio)
-          break
-      case let .failure(erro):
-        print("==33===:  erro", erro)
-      }
-    })
-  }
+    private(set) var encomendaSelecionada: Encomenda?
+
+    var rastreio: Rastreio? { didSet { atualizarView?() } }
+
+    func selecionar(encomendaNo indexPath: IndexPath) -> Encomenda {
+        coreData.fetchResultController.object(at: indexPath)
+    }
+
+    func apagar(encomenda: Encomenda) {
+        coreData.apagar(encomenda: encomenda)
+    }
+
+    // MARK: Private
+
+    private var coreData: CoreDataManager
 }

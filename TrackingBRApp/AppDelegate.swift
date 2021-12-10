@@ -5,14 +5,14 @@
 //  Created by Dairan on 22/08/21.
 //
 
-//import Atlantis
+import Atlantis
 import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //    Atlantis.start(hostName: "dairan-macbook-pro.local.")
-    //Atlantis.start()
+    Atlantis.start()
     return true
   }
 
