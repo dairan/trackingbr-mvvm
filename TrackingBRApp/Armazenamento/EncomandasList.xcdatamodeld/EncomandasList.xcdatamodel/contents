@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Encomenda" representedClassName="Encomenda" syncable="YES" codeGenerationType="class">
         <attribute name="adicionadoEm" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="atualizadoEm" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="codigo" optional="YES" attributeType="String"/>
+        <attribute name="codigo" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="descricao" optional="YES" attributeType="String"/>
         <attribute name="foiEntregue" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="postadoEm" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
