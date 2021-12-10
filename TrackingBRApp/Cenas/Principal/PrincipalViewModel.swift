@@ -13,9 +13,8 @@ import Foundation
 class PrincipalViewModel {
     // MARK: Lifecycle
 
-    init(coreData: CoreDataManager, repositorio: Repositorio) {
+    init(coreData: CoreDataManager) {
         self.coreData = coreData
-        self.repositorio = repositorio
     }
 
     // MARK: Internal
@@ -37,6 +36,5 @@ class PrincipalViewModel {
 
     // MARK: Private
 
-    private var repositorio: Repositorio
     private var coreData: CoreDataManager
 }

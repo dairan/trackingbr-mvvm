@@ -12,7 +12,7 @@ import UIKit
 
 protocol PrincipalViewDelegate: AnyObject {
     func encomendaSelecionada(_ encomenda: Encomenda)
-    func exibirSelecionada(_ encomenda: Encomenda)
+//    func exibirSelecionada(_ encomenda: Encomenda)
     func editarSelecionada(_ encomenda: Encomenda)
     func selecionouRowAt(_ indexPath: IndexPath)
 }

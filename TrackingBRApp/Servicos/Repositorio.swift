@@ -28,10 +28,14 @@ enum ErroRepositorio: Error {
 final class Repositorio {
     // MARK: Internal
 
-    func obterDados() {
+    func obterRastreio(da encomenda: Encomenda, aoCompletar: @escaping (Result<Rastreio, Error>) -> Void) {
+        guard let codigo = encomenda.codigo else { return }
+
         let config = URLSessionConfiguration.default
         let sessao = URLSession(configuration: config, delegate: nil, delegateQueue: nil)
-        guard let url = URL(string: "https://api.frenet.com.br/tracking/trackinginfo") else { return }
+        guard let url = URL(string: "https://api.frenet.com.br/tracking/trackinginfo") else {
+            return
+        }
 
         var requisicao = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 0)
         requisicao.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -41,8 +45,8 @@ final class Repositorio {
         let requisicaoBody = Requisicao(OrderNumber: "",
                                         ShippingServiceCode: "04227",
                                         InvoiceNumber: "",
-//                                        TrackingNumber: "LB466560165SE",
-                                        TrackingNumber: "NX409895735BR",
+//                                        TrackingNumber: "NX409895735BR",
+                                        TrackingNumber: codigo,
                                         InvoiceSerie: "",
                                         RecipientDocument: "")
 
@@ -51,23 +55,19 @@ final class Repositorio {
         requisicao.httpBody = jsonDados
         requisicao.httpMethod = httpMetodo.post.rawValue
 
-        let tarefa = sessao.dataTask(with: requisicao) { dados, resposta, erro in
-            if let erro = erro {
-                print("==36===:  erro", erro)
-            }
+        let tarefa = sessao.dataTask(with: requisicao) { dados, _, erro in
+            if let erro = erro { print("==36===:  erro", erro) }
 
             guard let dados = dados else { return }
 
-            let resultado: Rastreio? = dados.decodificar()
-            guard let rastreio = resultado else { return }
-            print("==26===:  rastreio", rastreio)
-            rastreio.trackingEvents?.forEach { print($0.eventDateTime) }
+            guard let rastreio: Rastreio = dados.decodificar() else { return }
+
+            DispatchQueue.main.async { aoCompletar(.success(rastreio)) }
         }
         tarefa.resume()
     }
 
     // MARK: Private
-
 
     private func converterJsonParaDados(requisicao: Requisicao) -> Data? {
         do {

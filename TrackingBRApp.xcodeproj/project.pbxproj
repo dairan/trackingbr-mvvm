@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B12154E22738274B00E4A667 /* Requisicao.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12154E12738274B00E4A667 /* Requisicao.swift */; };
+		B13C49E7275E36580098A31E /* DetalhesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C49E6275E36580098A31E /* DetalhesViewModel.swift */; };
 		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
 		B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */ = {isa = PBXBuildFile; fileRef = B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */; };
 		B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		B12154E12738274B00E4A667 /* Requisicao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requisicao.swift; sourceTree = "<group>"; };
+		B13C49E6275E36580098A31E /* DetalhesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesViewModel.swift; sourceTree = "<group>"; };
 		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
 		B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TrackingBRApp.docc; sourceTree = "<group>"; };
 		B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaParaSalvarDTO.swift; sourceTree = "<group>"; };
@@ -116,8 +118,9 @@
 		B182FC82270514B800914A46 /* Detalhes */ = {
 			isa = PBXGroup;
 			children = (
-				B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */,
 				B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */,
+				B13C49E6275E36580098A31E /* DetalhesViewModel.swift */,
+				B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */,
 			);
 			path = Detalhes;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				B1D60AA026D3079400BA428C /* Rastreio.swift in Sources */,
 				B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */,
 				B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */,
+				B13C49E7275E36580098A31E /* DetalhesViewModel.swift in Sources */,
 				B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */,
 				B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */,
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
