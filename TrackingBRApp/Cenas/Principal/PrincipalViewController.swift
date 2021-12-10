@@ -46,6 +46,26 @@ class PrincipalViewController: UIViewController {
         return view
     }()
 
+    private lazy var carregandoView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.hidesWhenStopped = true
+        return view
+    }()
+
+    private func carregandoExibir() {
+        view.addSubview(carregandoView)
+        NSLayoutConstraint.activate([
+            carregandoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            carregandoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        carregandoView.startAnimating()
+    }
+
+    private func carregandoOcultar() {
+        carregandoView.stopAnimating()
+    }
+
     private func configurarNavBar() {
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
@@ -83,16 +103,28 @@ class PrincipalViewController: UIViewController {
 
 extension PrincipalViewController: PrincipalViewDelegate {
     func encomendaSelecionada(_ encomenda: Encomenda) {
+        let viewModelDetalhes = DetalhesViewModel(encomenda: encomenda)
+        self.carregandoExibir()
 
+        viewModelDetalhes.carregamentoIniciado = {
+            
+        }
+
+        viewModelDetalhes.carregamentoFinalizadoSucesso = {
+            self.carregandoOcultar()
+            let viewController = EncomendaDetalhesViewController(com: viewModelDetalhes)
+            self.show(viewController, sender: self)
+        }
+
+        viewModelDetalhes.carregamentoFinalizadoErro = { erro in
+            print("==52===:  erro", erro)
+            self.carregandoOcultar()
+        }
     }
 
-    func selecionada(encomendaNo indexPath: IndexPath) {
+    func selecionada(encomendaNo indexPath: IndexPath) {}
 
-    }
-
-    func selecionouRowAt(_ indexPath: IndexPath) {
-
-    }
+    func selecionouRowAt(_: IndexPath) {}
 
     func editarSelecionada(_ encomenda: Encomenda) {
         let vc = AdicionarEditarViewController(coredata: coredata, encomendaSelecionada: encomenda)
@@ -107,8 +139,14 @@ extension PrincipalViewController: PrincipalViewDelegate {
         showDetailViewController(nav, sender: self)
     }
 
-    func exibirSelecionada(_ encomenda: Encomenda) {
-        let vc = EncomendaDetalhesViewController(encomenda: encomenda)
-        show(vc, sender: self)
-    }
+//    func exibirSelecionada(_ encomenda: Encomenda) {
+//        let vc = EncomendaDetalhesViewController(com: viewModel)
+//        show(vc, sender: self)
+//    }
 }
+
+// extension PrincipalViewController {
+//    func bind() {
+//        viewModel
+//    }
+// }
