@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetalhesHeaderFooterView: UITableViewHeaderFooterView {
+class DetalhesHeaderView: UITableViewHeaderFooterView {
   // MARK: Lifecycle
 
   override init(reuseIdentifier: String?) {
