@@ -1,5 +1,5 @@
 //
-//  GrandeTextField.swift
+//  DTFTextField.swift
 //  TrackingBRApp
 //
 //  Created by Dairan on 21/10/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MeuTextField: UITextField {
+class DTFTextField: UITextField {
   // MARK: Internal
 
   override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -25,8 +25,8 @@ class MeuTextField: UITextField {
   ///   - string: texto do placeholder
   ///   - cor: de background
   /// - Returns: textField montado pronto para uso.
-  func criar(comPlaceholder string: String, corBackground cor: UIColor) -> MeuTextField {
-    let textField = MeuTextField(frame: .zero)
+  func criar(comPlaceholder string: String, corBackground cor: UIColor) -> DTFTextField {
+    let textField = DTFTextField(frame: .zero)
     textField.accessibilityIdentifier = string
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.placeholder = string

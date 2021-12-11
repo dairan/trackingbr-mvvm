@@ -138,15 +138,4 @@ extension PrincipalViewController: PrincipalViewDelegate {
 
         showDetailViewController(nav, sender: self)
     }
-
-//    func exibirSelecionada(_ encomenda: Encomenda) {
-//        let vc = EncomendaDetalhesViewController(com: viewModel)
-//        show(vc, sender: self)
-//    }
 }
-
-// extension PrincipalViewController {
-//    func bind() {
-//        viewModel
-//    }
-// }
