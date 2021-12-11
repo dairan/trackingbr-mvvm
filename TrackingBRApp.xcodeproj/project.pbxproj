@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B12154E22738274B00E4A667 /* Requisicao.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12154E12738274B00E4A667 /* Requisicao.swift */; };
+		B12FEC0D276365CB00A7CC02 /* DetalhesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */; };
 		B13C49E7275E36580098A31E /* DetalhesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C49E6275E36580098A31E /* DetalhesViewModel.swift */; };
 		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
-		B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */ = {isa = PBXBuildFile; fileRef = B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */; };
 		B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */; };
-		B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D4B2721838F00FF575D /* GrandeTextField.swift */; };
+		B1606D4C2721838F00FF575D /* DTFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D4B2721838F00FF575D /* DTFTextField.swift */; };
 		B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */; };
 		B182FC8627051A4200914A46 /* DetalhesHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */; };
 		B1992770271DDCE100987AD9 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = B199276F271DDCE100987AD9 /* Atlantis */; };
@@ -49,11 +49,12 @@
 
 /* Begin PBXFileReference section */
 		B12154E12738274B00E4A667 /* Requisicao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requisicao.swift; sourceTree = "<group>"; };
+		B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesView.swift; sourceTree = "<group>"; };
+		B12FEC0E27636B1B00A7CC02 /* EncomandasList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EncomandasList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B13C49E6275E36580098A31E /* DetalhesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesViewModel.swift; sourceTree = "<group>"; };
 		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
-		B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TrackingBRApp.docc; sourceTree = "<group>"; };
 		B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaParaSalvarDTO.swift; sourceTree = "<group>"; };
-		B1606D4B2721838F00FF575D /* GrandeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandeTextField.swift; sourceTree = "<group>"; };
+		B1606D4B2721838F00FF575D /* DTFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFTextField.swift; sourceTree = "<group>"; };
 		B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaDetalhesViewController.swift; sourceTree = "<group>"; };
 		B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesHeaderFooterView.swift; sourceTree = "<group>"; };
 		B19C641726E797A100BA03F4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -110,7 +111,9 @@
 		B1606D4A2721828A00FF575D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				B1606D4B2721838F00FF575D /* GrandeTextField.swift */,
+				B1D60AAA26D3127000BA428C /* DTFButton.swift */,
+				B1D60AAC26D3127D00BA428C /* DTFLabel.swift */,
+				B1606D4B2721838F00FF575D /* DTFTextField.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -119,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				B182FC8527051A4200914A46 /* DetalhesHeaderFooterView.swift */,
+				B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */,
 				B13C49E6275E36580098A31E /* DetalhesViewModel.swift */,
 				B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */,
 			);
@@ -166,13 +170,12 @@
 		B1D60A8426D3068200BA428C /* TrackingBRApp */ = {
 			isa = PBXGroup;
 			children = (
-				B19C641F26E79A4200BA03F4 /* Armazenamento */,
 				B1D60AA526D309E200BA428C /* Cenas */,
+				B1606D4A2721828A00FF575D /* CustomViews */,
 				B1D60A9926D3068B00BA428C /* Models */,
-				B1E65EB526D4EC8000141A04 /* Recursos */,
+				B19C641F26E79A4200BA03F4 /* Armazenamento */,
 				B1D60A9C26D3071400BA428C /* Servicos */,
-				B1E65EB426D4EBF600141A04 /* Views */,
-				B155C3BB2700CAC600F22EE7 /* TrackingBRApp.docc */,
+				B1E65EB526D4EC8000141A04 /* Recursos */,
 			);
 			path = TrackingBRApp;
 			sourceTree = "<group>";
@@ -201,7 +204,6 @@
 				B1D60AA626D309FC00BA428C /* Principal */,
 				B19C642226E7C99800BA03F4 /* AdicionarEditar */,
 				B182FC82270514B800914A46 /* Detalhes */,
-				B1606D4A2721828A00FF575D /* CustomViews */,
 				B154303E26EAB2BB00772F73 /* Configuracoes */,
 			);
 			path = Cenas;
@@ -215,15 +217,6 @@
 				B1D60A8926D3068200BA428C /* PrincipalViewController.swift */,
 			);
 			path = Principal;
-			sourceTree = "<group>";
-		};
-		B1E65EB426D4EBF600141A04 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B1D60AAA26D3127000BA428C /* DTFButton.swift */,
-				B1D60AAC26D3127D00BA428C /* DTFLabel.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		B1E65EB526D4EC8000141A04 /* Recursos */ = {
@@ -360,9 +353,10 @@
 				B19C641826E797A100BA03F4 /* CoreDataManager.swift in Sources */,
 				B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */,
 				B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */,
-				B1606D4C2721838F00FF575D /* GrandeTextField.swift in Sources */,
+				B1606D4C2721838F00FF575D /* DTFTextField.swift in Sources */,
 				B1D60AA226D307F100BA428C /* Repositorio.swift in Sources */,
 				B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */,
+				B12FEC0D276365CB00A7CC02 /* DetalhesView.swift in Sources */,
 				B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */,
 				B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */,
 				B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */,
@@ -372,7 +366,6 @@
 				B182FC84270514D600914A46 /* EncomendaDetalhesViewController.swift in Sources */,
 				B13C49E7275E36580098A31E /* DetalhesViewModel.swift in Sources */,
 				B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */,
-				B155C3BC2700CAC600F22EE7 /* TrackingBRApp.docc in Sources */,
 				B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */,
 				B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */,
 				B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */,
@@ -677,6 +670,7 @@
 		B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				B12FEC0E27636B1B00A7CC02 /* EncomandasList 2.xcdatamodel */,
 				B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */,
 			);
 			currentVersion = B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */;
