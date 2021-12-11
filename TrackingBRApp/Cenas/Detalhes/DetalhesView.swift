@@ -39,7 +39,7 @@ class DetalhesView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DetalhesHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderEncomenda")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "EncomendaCellId")
+        tableView.register(DetalheCell.self, forCellReuseIdentifier: DetalheCell.identificador)
         return tableView
     }()
 }
@@ -76,13 +76,8 @@ extension DetalhesView: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EncomendaCellId", for: indexPath)
-
-        var conteudo = cell.defaultContentConfiguration()
-        conteudo.text = rastreamento.eventDescription
-        conteudo.secondaryText = rastreamento.eventLocation
-
-        cell.contentConfiguration = conteudo
+        let cell = tableView.dequeueReusableCell(withIdentifier: DetalheCell.identificador, for: indexPath) as! DetalheCell
+        cell.configurar(com: rastreamento)
         return cell
     }
 }

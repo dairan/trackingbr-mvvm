@@ -11,6 +11,14 @@ import Foundation
 // MARK: - Rastreio
 
 struct Rastreio: Codable {
+    let trackingNumber, serviceDescrition: String?
+    let errorMessage: String?
+    let trackingEvents: [TrackingEvent]?
+    let carrier, carrierCode: String?
+    let shippingDate: String?
+    let maxDeliveryTime: Int?
+    let estimatedDate, attempt, destination, origin: String?
+
     enum CodingKeys: String, CodingKey {
         case trackingNumber = "TrackingNumber"
         case serviceDescrition = "ServiceDescrition"
@@ -25,19 +33,16 @@ struct Rastreio: Codable {
         case destination = "Destination"
         case origin = "Origin"
     }
-
-    let trackingNumber, serviceDescrition: String?
-    let errorMessage: String?
-    let trackingEvents: [TrackingEvent]?
-    let carrier, carrierCode: String?
-    let shippingDate: String?
-    let maxDeliveryTime: Int?
-    let estimatedDate, attempt, destination, origin: String?
 }
 
 // MARK: - TrackingEvent
 
 struct TrackingEvent: Codable {
+    let sortDateTime: String?
+    let eventDateTime: Date
+    let eventLocation, eventDescription, eventType: String
+    let eventStatus, carrierEvent, carrierStatus: String?
+
     enum CodingKeys: String, CodingKey {
         case sortDateTime = "SortDateTime"
         case eventDateTime = "EventDateTime"
@@ -48,9 +53,4 @@ struct TrackingEvent: Codable {
         case carrierEvent = "CarrierEvent"
         case carrierStatus = "CarrierStatus"
     }
-
-    let sortDateTime: String?
-    let eventDateTime: Date
-    let eventLocation, eventDescription, eventType: String
-    let eventStatus, carrierEvent, carrierStatus: String?
 }
