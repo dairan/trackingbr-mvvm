@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - PrincipalViewController
 
-class PrincipalViewController: UIViewController {
+class PrincipalViewController: BaseViewController {
     // MARK: Lifecycle
 
     init(com viewModel: PrincipalViewModel,
@@ -45,26 +45,6 @@ class PrincipalViewController: UIViewController {
         let view = PrincipalView(coredata: coredata)
         return view
     }()
-
-    private lazy var carregandoView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .medium)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.hidesWhenStopped = true
-        return view
-    }()
-
-    private func carregandoExibir() {
-        view.addSubview(carregandoView)
-        NSLayoutConstraint.activate([
-            carregandoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            carregandoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-        carregandoView.startAnimating()
-    }
-
-    private func carregandoOcultar() {
-        carregandoView.stopAnimating()
-    }
 
     private func configurarNavBar() {
         let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -104,21 +84,21 @@ class PrincipalViewController: UIViewController {
 extension PrincipalViewController: PrincipalViewDelegate {
     func encomendaSelecionada(_ encomenda: Encomenda) {
         let viewModelDetalhes = DetalhesViewModel(encomenda: encomenda)
-        self.carregandoExibir()
+        self.atividadeIndicatorBegin()
 
         viewModelDetalhes.carregamentoIniciado = {
             
         }
 
         viewModelDetalhes.carregamentoFinalizadoSucesso = {
-            self.carregandoOcultar()
+            self.atividadeIndicatorEnd()
             let viewController = EncomendaDetalhesViewController(com: viewModelDetalhes)
             self.show(viewController, sender: self)
         }
 
         viewModelDetalhes.carregamentoFinalizadoErro = { erro in
             print("==52===:  erro", erro)
-            self.carregandoOcultar()
+            self.atividadeIndicatorEnd()
         }
     }
 
