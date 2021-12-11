@@ -78,7 +78,7 @@ extension DetalhesView: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension DetalhesView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> Double {
-        150
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        120
     }
 }
