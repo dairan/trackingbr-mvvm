@@ -67,6 +67,11 @@ extension DetalhesView: UITableViewDataSource {
         return view
     }
 
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let minhaView = view as? DetalhesHeaderView else { return }
+        minhaView.contentView.backgroundColor = .systemMint
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.rastreamento?.trackingEvents?.count ?? 0
     }

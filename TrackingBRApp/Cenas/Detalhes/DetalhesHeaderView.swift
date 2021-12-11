@@ -33,8 +33,6 @@ class DetalhesHeaderView: UITableViewHeaderFooterView {
 
 extension DetalhesHeaderView: ViewCode {
     func configurar() {
-        backgroundColor = .red
-        contentView.backgroundColor = .systemOrange
         contentView.addSubview(codigoLabel)
     }
 

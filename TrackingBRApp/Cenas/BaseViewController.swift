@@ -38,7 +38,7 @@ class BaseViewController: UIViewController {
     private lazy var atividadeIndicador: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.center = self.view.center
-        view.color = .systemOrange
+        view.color = .systemMint
         view.hidesWhenStopped = true
         return view
     }()

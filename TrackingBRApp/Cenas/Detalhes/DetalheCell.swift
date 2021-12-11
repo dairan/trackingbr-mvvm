@@ -52,22 +52,22 @@ class DetalheCell: UITableViewCell {
 
     private let dataLabel: UILabel = {
         let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title2)
         label.accessibilityIdentifier = "data-Label"
         return label
     }()
 
     private let localLabel: UILabel = {
         let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .headline)
         label.accessibilityIdentifier = "local-Label"
         return label
     }()
 
     private let descricaoLabel: UILabel = {
         let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.font = .preferredFont(forTextStyle: .footnote)
         label.accessibilityIdentifier = "descricao-Label"
         return label
     }()

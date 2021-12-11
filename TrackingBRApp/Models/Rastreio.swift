@@ -46,7 +46,7 @@ struct TrackingEvent: Codable {
     enum CodingKeys: String, CodingKey {
         case sortDateTime = "SortDateTime"
         case eventDateTime = "EventDateTime"
-        case eventLocation = "EventLocation"
+        case eventLocation
         case eventDescription = "EventDescription"
         case eventType = "EventType"
         case eventStatus = "EventStatus"
@@ -54,3 +54,18 @@ struct TrackingEvent: Codable {
         case carrierStatus = "CarrierStatus"
     }
 }
+
+struct AnyKey: CodingKey {
+    var stringValue: String
+    var intValue: Int?
+
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+        self.intValue = nil
+    }
+
+    init?(intValue: Int) {
+        self.stringValue = String(intValue)
+        self.intValue = intValue
+    }
+    }

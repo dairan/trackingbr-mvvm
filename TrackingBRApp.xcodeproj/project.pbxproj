@@ -127,11 +127,11 @@
 		B182FC82270514B800914A46 /* Detalhes */ = {
 			isa = PBXGroup;
 			children = (
-				B182FC8527051A4200914A46 /* DetalhesHeaderView.swift */,
+				B1C5C8162764F3E90062D8FF /* DetalheCell.swift */,
 				B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */,
+				B182FC8527051A4200914A46 /* DetalhesHeaderView.swift */,
 				B13C49E6275E36580098A31E /* DetalhesViewModel.swift */,
 				B182FC83270514D600914A46 /* EncomendaDetalhesViewController.swift */,
-				B1C5C8162764F3E90062D8FF /* DetalheCell.swift */,
 			);
 			path = Detalhes;
 			sourceTree = "<group>";
