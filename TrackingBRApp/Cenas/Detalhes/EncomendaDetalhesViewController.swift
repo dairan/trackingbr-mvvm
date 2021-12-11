@@ -30,6 +30,13 @@ class EncomendaDetalhesViewController: UIViewController {
         configurar()
     }
 
+
+    override func loadView() {
+        super.loadView()
+        let detalhesView = DetalhesView()
+        view = detalhesView
+    }
+
     // MARK: Internal
 
     let viewModel: DetalhesViewModel
