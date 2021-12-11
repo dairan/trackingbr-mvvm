@@ -8,37 +8,42 @@
 import UIKit
 
 class DetalhesHeaderView: UITableViewHeaderFooterView {
-  // MARK: Lifecycle
+    // MARK: Lifecycle
 
-  override init(reuseIdentifier: String?) {
-    super.init(reuseIdentifier: reuseIdentifier)
-    configurar()
-    configurarConstraits()
-  }
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        configurarGeral()
+    }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-  // MARK: Private
+    // MARK: Private
 
-  private lazy var codigoLabel: UILabel = {
-    let label = UILabel()
-    label.text = "Descrição do produto até duas linhas."
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+    private lazy var codigoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Descrição do produto até duas linhas."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+}
 
-  private func configurar() {
-    backgroundColor = .red
-    contentView.backgroundColor = .systemOrange
-    contentView.addSubview(codigoLabel)
-  }
+// MARK: - ViewCode
 
-  private func configurarConstraits() {
-    NSLayoutConstraint.activate([
-      codigoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-      codigoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-    ])
-  }
+extension DetalhesHeaderView: ViewCode {
+    func configurar() {
+        backgroundColor = .red
+        contentView.backgroundColor = .systemOrange
+        contentView.addSubview(codigoLabel)
+    }
+
+    func configurarView() {}
+
+    func configurarConstraits() {
+        NSLayoutConstraint.activate([
+            codigoLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            codigoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+    }
 }

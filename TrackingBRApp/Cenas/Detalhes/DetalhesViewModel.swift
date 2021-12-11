@@ -37,7 +37,7 @@ final class DetalhesViewModel {
     var rastreamento: Rastreio?
 
     func rastreio(no indexPath: IndexPath) -> String {
-        "\(rastreamento?.trackingEvents?[indexPath.row].eventDateTime ?? Date() ) | \(rastreamento?.trackingEvents?[indexPath.row].eventLocation ?? "Sem localizacao")"
+        "\(rastreamento?.trackingEvents?[indexPath.row].eventDateTime ?? Date()) | \(rastreamento?.trackingEvents?[indexPath.row].eventLocation ?? "Sem localizacao")"
     }
 
     // MARK: Private

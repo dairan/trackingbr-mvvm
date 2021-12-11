@@ -27,7 +27,6 @@ class PrincipalViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configurarNavBar()
     }
 

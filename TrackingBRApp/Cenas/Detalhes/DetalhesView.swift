@@ -12,7 +12,6 @@ class DetalhesView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        addSubview(rastreioTableView)
     }
 
     required init?(coder: NSCoder) {
@@ -28,7 +27,7 @@ class DetalhesView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        rastreioTableView.frame = bounds
+        configurarView()
     }
 
     // MARK: Private
@@ -43,6 +42,19 @@ class DetalhesView: UIView {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "EncomendaCellId")
         return tableView
     }()
+}
+
+// MARK: - ViewCode
+
+extension DetalhesView: ViewCode {
+    func configurar() {}
+
+    func configurarConstraits() {}
+
+    func configurarView() {
+        addSubview(rastreioTableView)
+        rastreioTableView.frame = bounds
+    }
 }
 
 // MARK: - UITableViewDataSource
