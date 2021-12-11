@@ -73,8 +73,8 @@ class AdicionarEditarView: UIView {
         return stackView
     }()
 
-    private lazy var codigoTextField: MeuTextField = {
-        let textField = MeuTextField().criar(comPlaceholder: "Código da encomenda", corBackground: .systemBackground)
+    private lazy var codigoTextField: DTFTextField = {
+        let textField = DTFTextField().criar(comPlaceholder: "Código da encomenda", corBackground: .systemBackground)
         textField.delegate = self
         textField.autocapitalizationType = .allCharacters
         textField.smartInsertDeleteType = .no
@@ -83,8 +83,8 @@ class AdicionarEditarView: UIView {
         return textField
     }()
 
-    private lazy var descricaoTextField: MeuTextField = {
-        let textField = MeuTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
+    private lazy var descricaoTextField: DTFTextField = {
+        let textField = DTFTextField().criar(comPlaceholder: "Descrição", corBackground: .systemBackground)
         textField.delegate = self
 
         return textField

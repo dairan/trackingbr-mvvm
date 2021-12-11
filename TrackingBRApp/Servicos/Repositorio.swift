@@ -45,7 +45,6 @@ final class Repositorio {
         let requisicaoBody = Requisicao(OrderNumber: "",
                                         ShippingServiceCode: "04227",
                                         InvoiceNumber: "",
-//                                        TrackingNumber: "NX409895735BR",
                                         TrackingNumber: codigo,
                                         InvoiceSerie: "",
                                         RecipientDocument: "")
@@ -80,7 +79,7 @@ final class Repositorio {
 }
 
 extension DateFormatter {
-    static let converterStringParaData: DateFormatter = {
+    static let converterStringParaDate: DateFormatter = {
         let formatador = DateFormatter()
         formatador.dateFormat = "dd/MM/yyyy hh:mm"
         formatador.calendar = Calendar(identifier: .iso8601)
@@ -93,7 +92,7 @@ extension DateFormatter {
 extension Data {
     func decodificar<T: Codable>() -> T? {
         let decodificador = JSONDecoder()
-        decodificador.dateDecodingStrategy = .formatted(.converterStringParaData)
+        decodificador.dateDecodingStrategy = .formatted(.converterStringParaDate)
         do {
             let resultado = try decodificador.decode(T.self, from: self)
             return resultado
