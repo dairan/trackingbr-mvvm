@@ -11,8 +11,9 @@ import UIKit
 
 class AdicionarEditarViewController: UIViewController {
     // MARK: Lifecycle
-
-    init(coredata: CoreDataManager, encomendaSelecionada encomenda: Encomenda? = nil ) {
+    init(coredata: CoreDataManager,
+         encomendaSelecionada encomenda: Encomenda? = nil)
+    {
         self.coredata = coredata
         self.encomendaSelecionada = encomenda
         super.init(nibName: nil, bundle: nil)
@@ -22,22 +23,19 @@ class AdicionarEditarViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Internal
-
-    override func loadView() {
-        super.loadView()
-
-        addEditarView.delegate = self
-        view = addEditarView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navBarSetup()
 
         guard let encomenda = encomendaSelecionada else { return }
-        salvarButtonItem.isEnabled = true
         addEditarView.configurar(encomenda)
+    }
+
+    // MARK: Internal
+    override func loadView() {
+        super.loadView()
+        addEditarView.delegate = self
+        view = addEditarView
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -45,6 +43,7 @@ class AdicionarEditarViewController: UIViewController {
     }
 
     // MARK: Private
+    private var viewModel = AdicionarEditarViewModel()
 
     private var coredata: CoreDataManager
     private lazy var addEditarView = AdicionarEditarView()
@@ -64,7 +63,7 @@ class AdicionarEditarViewController: UIViewController {
         return barButton
     }()
 
-    private var encomendaParaSalvar: EncomendaParaSalvarDTO?
+//    private var encomendaParaSalvar: EncomendaParaSalvarDTO?
     private var encomendaSelecionada: Encomenda?
 
     private func navBarSetup() {
@@ -81,21 +80,21 @@ class AdicionarEditarViewController: UIViewController {
     }
 
     @objc private func salvarTapped() {
-        guard let encomendaParaSalvar = encomendaParaSalvar else { return }
+        guard let encomendaParaSalvar = viewModel.encomenda else { return }
         coredata.adicionar(encomendaParaSalvar)
+
         dispensarView()
     }
 }
 
-// MARK: - AdicionarEditarViewController
-
+// MARK: - AdicionarEditarViewDelegate
 extension AdicionarEditarViewController: AdicionarEditarViewDelegate {
     func salvarEncomenda(_ encomenda: EncomendaParaSalvarDTO) {
-        self.encomendaParaSalvar = encomenda
+        viewModel.salvar(encomenda)
     }
 
     func fecharCalendario() {
-        dismiss(animated: true, completion: nil)
+        dispensarView()
     }
 
     func habilitarBotaoSalvar(_ estaHabilitado: Bool) {

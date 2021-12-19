@@ -7,9 +7,12 @@
 
 import UIKit
 
+protocol DetalhesViewDelegate: AnyObject {
+    func linhaSelecionada(no indice: IndexPath)
+}
+
 class DetalhesView: UIView {
     // MARK: Lifecycle
-
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
@@ -24,6 +27,7 @@ class DetalhesView: UIView {
     }
 
     // MARK: Internal
+    weak var delegate: DetalhesViewDelegate?
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -31,21 +35,20 @@ class DetalhesView: UIView {
     }
 
     // MARK: Private
-
     private var viewModel: DetalhesViewModel?
+    private var detalhesHeaderView: DetalhesHeaderView?
 
     private lazy var rastreioTableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(DetalhesHeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderEncomenda")
+        tableView.register(DetalhesHeaderView.self, forHeaderFooterViewReuseIdentifier: DetalhesHeaderView.identificador)
         tableView.register(DetalheCell.self, forCellReuseIdentifier: DetalheCell.identificador)
         return tableView
     }()
 }
 
 // MARK: - ViewCode
-
 extension DetalhesView: ViewCode {
     func configurar() {}
 
@@ -58,13 +61,12 @@ extension DetalhesView: ViewCode {
 }
 
 // MARK: - UITableViewDataSource
-
 extension DetalhesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderEncomenda") as? DetalhesHeaderView else {
-            return UITableViewCell()
-        }
-        return view
+        detalhesHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetalhesHeaderView.identificador) as? DetalhesHeaderView
+        guard let vm = viewModel else { return detalhesHeaderView }
+        detalhesHeaderView!.configuraDados(viewModel: vm)
+        return detalhesHeaderView
     }
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -85,12 +87,16 @@ extension DetalhesView: UITableViewDataSource {
         cell.configurar(com: rastreamento)
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.linhaSelecionada(no: indexPath)
+        detalhesHeaderView?.atualizarCidade(no: indexPath)
+    }
 }
 
 // MARK: - UITableViewDelegate
-
 extension DetalhesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        120
+        220
     }
 }

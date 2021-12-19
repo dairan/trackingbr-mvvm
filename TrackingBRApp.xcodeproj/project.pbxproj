@@ -10,6 +10,8 @@
 		B12154E22738274B00E4A667 /* Requisicao.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12154E12738274B00E4A667 /* Requisicao.swift */; };
 		B12FEC0D276365CB00A7CC02 /* DetalhesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */; };
 		B13C49E7275E36580098A31E /* DetalhesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C49E6275E36580098A31E /* DetalhesViewModel.swift */; };
+		B1475290276AD5F600CF83E6 /* Validacao.swift in Sources */ = {isa = PBXBuildFile; fileRef = B147528F276AD5F600CF83E6 /* Validacao.swift */; };
+		B1475292276AE28700CF83E6 /* AdicionarEditarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1475291276AE28700CF83E6 /* AdicionarEditarViewModel.swift */; };
 		B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */; };
 		B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */; };
 		B1606D4C2721838F00FF575D /* DTFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1606D4B2721838F00FF575D /* DTFTextField.swift */; };
@@ -20,6 +22,7 @@
 		B19C641E26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B19C641C26E79A2A00BA03F4 /* EncomandasList.xcdatamodeld */; };
 		B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */; };
 		B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */; };
+		B1AB70C1276FDBBA004515E3 /* PrincipalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AB70C0276FDBBA004515E3 /* PrincipalTableViewCell.swift */; };
 		B1C42FF726D3972E0004B613 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C42FF626D3972E0004B613 /* Bindable.swift */; };
 		B1C5C8132764D1870062D8FF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5C8122764D1870062D8FF /* BaseViewController.swift */; };
 		B1C5C8152764ED170062D8FF /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5C8142764ED170062D8FF /* ViewCode.swift */; };
@@ -36,7 +39,6 @@
 		B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AA726D310B700BA428C /* PrincipalView.swift */; };
 		B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAA26D3127000BA428C /* DTFButton.swift */; };
 		B1D60AAD26D3127D00BA428C /* DTFLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAC26D3127D00BA428C /* DTFLabel.swift */; };
-		B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */; };
 		B1F36AE527218A3900801F44 /* TrackingBRAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F36AE427218A3900801F44 /* TrackingBRAppTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		B12FEC0C276365CB00A7CC02 /* DetalhesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesView.swift; sourceTree = "<group>"; };
 		B12FEC0E27636B1B00A7CC02 /* EncomandasList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EncomandasList 2.xcdatamodel"; sourceTree = "<group>"; };
 		B13C49E6275E36580098A31E /* DetalhesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhesViewModel.swift; sourceTree = "<group>"; };
+		B147528F276AD5F600CF83E6 /* Validacao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validacao.swift; sourceTree = "<group>"; };
+		B1475291276AE28700CF83E6 /* AdicionarEditarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewModel.swift; sourceTree = "<group>"; };
 		B154303F26EAB2DD00772F73 /* ConfiguracoesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracoesViewController.swift; sourceTree = "<group>"; };
 		B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncomendaParaSalvarDTO.swift; sourceTree = "<group>"; };
 		B1606D4B2721838F00FF575D /* DTFTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFTextField.swift; sourceTree = "<group>"; };
@@ -64,6 +68,7 @@
 		B19C641D26E79A2A00BA03F4 /* EncomandasList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EncomandasList.xcdatamodel; sourceTree = "<group>"; };
 		B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewController.swift; sourceTree = "<group>"; };
 		B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarView.swift; sourceTree = "<group>"; };
+		B1AB70C0276FDBBA004515E3 /* PrincipalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrincipalTableViewCell.swift; sourceTree = "<group>"; };
 		B1C42FF626D3972E0004B613 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		B1C5C8122764D1870062D8FF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B1C5C8142764ED170062D8FF /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
@@ -81,7 +86,6 @@
 		B1D60AA726D310B700BA428C /* PrincipalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrincipalView.swift; sourceTree = "<group>"; };
 		B1D60AAA26D3127000BA428C /* DTFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFButton.swift; sourceTree = "<group>"; };
 		B1D60AAC26D3127D00BA428C /* DTFLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFLabel.swift; sourceTree = "<group>"; };
-		B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarEditarViewModel.swift; sourceTree = "<group>"; };
 		B1F36AE227218A3900801F44 /* TrackingBRAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackingBRAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F36AE427218A3900801F44 /* TrackingBRAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingBRAppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,9 +152,10 @@
 		B19C642226E7C99800BA03F4 /* AdicionarEditar */ = {
 			isa = PBXGroup;
 			children = (
+				B147528F276AD5F600CF83E6 /* Validacao.swift */,
 				B1606D442720EF7900FF575D /* EncomendaParaSalvarDTO.swift */,
+				B1475291276AE28700CF83E6 /* AdicionarEditarViewModel.swift */,
 				B19C642626E8246300BA03F4 /* AdicionarEditarView.swift */,
-				B1DF2CE926F189C600298B1C /* AdicionarEditarViewModel.swift */,
 				B19C642026E7C99200BA03F4 /* AdicionarEditarViewController.swift */,
 			);
 			name = AdicionarEditar;
@@ -221,6 +226,7 @@
 		B1D60AA626D309FC00BA428C /* Principal */ = {
 			isa = PBXGroup;
 			children = (
+				B1AB70C0276FDBBA004515E3 /* PrincipalTableViewCell.swift */,
 				B1D60AA726D310B700BA428C /* PrincipalView.swift */,
 				B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */,
 				B1D60A8926D3068200BA428C /* PrincipalViewController.swift */,
@@ -355,8 +361,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1AB70C1276FDBBA004515E3 /* PrincipalTableViewCell.swift in Sources */,
+				B1475292276AE28700CF83E6 /* AdicionarEditarViewModel.swift in Sources */,
 				B12154E22738274B00E4A667 /* Requisicao.swift in Sources */,
-				B1DF2CEA26F189C600298B1C /* AdicionarEditarViewModel.swift in Sources */,
+				B1475290276AD5F600CF83E6 /* Validacao.swift in Sources */,
 				B1D60A8A26D3068200BA428C /* PrincipalViewController.swift in Sources */,
 				B1D60AA426D309D400BA428C /* PrincipalViewModel.swift in Sources */,
 				B19C641826E797A100BA03F4 /* CoreDataManager.swift in Sources */,

@@ -48,8 +48,8 @@ class PrincipalView: UIView {
     private lazy var listagemTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.accessibilityIdentifier = "listagem-tableView"
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellId")
+        tableView.accessibilityIdentifier = "listagemTableView"
+        tableView.register(PrincipalTableViewCell.self, forCellReuseIdentifier: PrincipalTableViewCell.CellID)
         tableView.delegate = self
         return tableView
     }()
@@ -63,19 +63,18 @@ class PrincipalView: UIView {
         }
     }
 
+
+
     private func fonteDadosSetup() -> UITableViewDiffableDataSource<String, Encomenda> {
         UITableViewDiffableDataSource(tableView: listagemTableView) { tableView, indexPath, itemIdentifier in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PrincipalTableViewCell.CellID, for: indexPath) as? PrincipalTableViewCell else { return UITableViewCell() }
+
             let encomenda = self.coredata.fetchResultController.object(at: indexPath)
-
-            var conteudo = cell.defaultContentConfiguration()
-            conteudo.text = encomenda.codigo
-            conteudo.secondaryText = encomenda.descricao
-
-            cell.contentConfiguration = conteudo
+            cell.configurar(encomenda)
 
             return cell
         }
+        
     }
 
     private func configurarConstraits() {

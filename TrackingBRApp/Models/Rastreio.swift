@@ -20,18 +20,18 @@ struct Rastreio: Codable {
     let estimatedDate, attempt, destination, origin: String?
 
     enum CodingKeys: String, CodingKey {
-        case trackingNumber = "TrackingNumber"
-        case serviceDescrition = "ServiceDescrition"
-        case errorMessage = "ErrorMessage"
-        case trackingEvents = "TrackingEvents"
-        case carrier = "Carrier"
-        case carrierCode = "CarrierCode"
-        case shippingDate = "ShippingDate"
-        case maxDeliveryTime = "MaxDeliveryTime"
-        case estimatedDate = "EstimatedDate"
-        case attempt = "Attempt"
-        case destination = "Destination"
-        case origin = "Origin"
+        case trackingNumber
+        case serviceDescrition
+        case errorMessage
+        case trackingEvents
+        case carrier
+        case carrierCode
+        case shippingDate
+        case maxDeliveryTime
+        case estimatedDate
+        case attempt
+        case destination
+        case origin
     }
 }
 
@@ -40,18 +40,18 @@ struct Rastreio: Codable {
 struct TrackingEvent: Codable {
     let sortDateTime: String?
     let eventDateTime: Date
-    let eventLocation, eventDescription, eventType: String
+    var eventLocation, eventDescription, eventType: String
     let eventStatus, carrierEvent, carrierStatus: String?
 
     enum CodingKeys: String, CodingKey {
-        case sortDateTime = "SortDateTime"
-        case eventDateTime = "EventDateTime"
+        case sortDateTime
+        case eventDateTime
         case eventLocation
-        case eventDescription = "EventDescription"
-        case eventType = "EventType"
-        case eventStatus = "EventStatus"
-        case carrierEvent = "CarrierEvent"
-        case carrierStatus = "CarrierStatus"
+        case eventDescription
+        case eventType
+        case eventStatus
+        case carrierEvent
+        case carrierStatus
     }
 }
 
@@ -68,4 +68,4 @@ struct AnyKey: CodingKey {
         self.stringValue = String(intValue)
         self.intValue = intValue
     }
-    }
+}

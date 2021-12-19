@@ -21,12 +21,6 @@ class EncomendaDetalhesViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        super.loadView()
-        let detalhesView = DetalhesView(viewModel: viewModel)
-        view = detalhesView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configurarGeral()
@@ -37,6 +31,13 @@ class EncomendaDetalhesViewController: UIViewController {
     let viewModel: DetalhesViewModel
 
     // MARK: Private
+
+    override func loadView() {
+        super.loadView()
+        let detalhesView = DetalhesView(viewModel: viewModel)
+        detalhesView.delegate = self
+        view = detalhesView
+    }
 }
 
 // MARK: - ViewCode
@@ -51,5 +52,14 @@ extension EncomendaDetalhesViewController: ViewCode {
     func configurarView() {
         navigationController?.navigationBar.prefersLargeTitles = true
         title = viewModel.encomenda.codigo
+    }
+}
+
+// MARK: - DetalhesViewDelegate
+
+extension EncomendaDetalhesViewController: DetalhesViewDelegate {
+    func linhaSelecionada(no indice: IndexPath) {
+        let rastreio = viewModel.rastreio(no: indice)
+
     }
 }
