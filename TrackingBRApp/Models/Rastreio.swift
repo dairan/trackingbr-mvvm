@@ -20,18 +20,18 @@ struct Rastreio: Codable {
     let estimatedDate, attempt, destination, origin: String?
 
     enum CodingKeys: String, CodingKey {
-        case trackingNumber
-        case serviceDescrition
-        case errorMessage
-        case trackingEvents
-        case carrier
-        case carrierCode
-        case shippingDate
-        case maxDeliveryTime
-        case estimatedDate
-        case attempt
-        case destination
-        case origin
+        case trackingNumber = "TrackingNumber"
+        case serviceDescrition = "ServiceDescrition"
+        case errorMessage = "ErrorMessage"
+        case trackingEvents = "TrackingEvents"
+        case carrier = "Carrier"
+        case carrierCode = "CarrierCode"
+        case shippingDate = "ShippingDate"
+        case maxDeliveryTime = "MaxDeliveryTime"
+        case estimatedDate = "EstimatedDate"
+        case attempt = "Attempt"
+        case destination = "Destination"
+        case origin = "Origin"
     }
 }
 
@@ -44,14 +44,14 @@ struct TrackingEvent: Codable {
     let eventStatus, carrierEvent, carrierStatus: String?
 
     enum CodingKeys: String, CodingKey {
-        case sortDateTime
-        case eventDateTime
-        case eventLocation
-        case eventDescription
-        case eventType
-        case eventStatus
-        case carrierEvent
-        case carrierStatus
+        case sortDateTime = "SortDateTime"
+        case eventDateTime = "EventDateTime"
+        case eventLocation = "EventLocation"
+        case eventDescription = "EventDescription"
+        case eventType = "EventType"
+        case eventStatus = "EventStatus"
+        case carrierEvent = "CarrierEvent"
+        case carrierStatus = "CarrierStatus"
     }
 }
 

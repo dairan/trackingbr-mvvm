@@ -28,13 +28,13 @@
 		B1C5C8152764ED170062D8FF /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5C8142764ED170062D8FF /* ViewCode.swift */; };
 		B1C5C8172764F3E90062D8FF /* DetalheCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5C8162764F3E90062D8FF /* DetalheCell.swift */; };
 		B1CDE450270A43FB0036CB3C /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B1CDE44F270A43FB0036CB3C /* Toast */; };
+		B1D60010276FEDED00260A84 /* Repositorio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6000F276FEDED00260A84 /* Repositorio.swift */; };
 		B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8526D3068200BA428C /* AppDelegate.swift */; };
 		B1D60A8826D3068200BA428C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8726D3068200BA428C /* SceneDelegate.swift */; };
 		B1D60A8A26D3068200BA428C /* PrincipalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A8926D3068200BA428C /* PrincipalViewController.swift */; };
 		B1D60A8F26D3068300BA428C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D60A8E26D3068300BA428C /* Assets.xcassets */; };
 		B1D60A9226D3068300BA428C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D60A9026D3068300BA428C /* LaunchScreen.storyboard */; };
 		B1D60AA026D3079400BA428C /* Rastreio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60A9F26D3079400BA428C /* Rastreio.swift */; };
-		B1D60AA226D307F100BA428C /* Repositorio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AA126D307F100BA428C /* Repositorio.swift */; };
 		B1D60AA426D309D400BA428C /* PrincipalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */; };
 		B1D60AA826D310B700BA428C /* PrincipalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AA726D310B700BA428C /* PrincipalView.swift */; };
 		B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D60AAA26D3127000BA428C /* DTFButton.swift */; };
@@ -74,6 +74,7 @@
 		B1C5C8142764ED170062D8FF /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
 		B1C5C8162764F3E90062D8FF /* DetalheCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalheCell.swift; sourceTree = "<group>"; };
 		B1D6000E276FEA8400260A84 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		B1D6000F276FEDED00260A84 /* Repositorio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositorio.swift; sourceTree = "<group>"; };
 		B1D60A8226D3068200BA428C /* TrackingBRApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackingBRApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D60A8526D3068200BA428C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1D60A8726D3068200BA428C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		B1D60A9126D3068300BA428C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1D60A9326D3068300BA428C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1D60A9F26D3079400BA428C /* Rastreio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rastreio.swift; sourceTree = "<group>"; };
-		B1D60AA126D307F100BA428C /* Repositorio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositorio.swift; sourceTree = "<group>"; };
 		B1D60AA326D309D400BA428C /* PrincipalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrincipalViewModel.swift; sourceTree = "<group>"; };
 		B1D60AA726D310B700BA428C /* PrincipalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrincipalView.swift; sourceTree = "<group>"; };
 		B1D60AAA26D3127000BA428C /* DTFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFButton.swift; sourceTree = "<group>"; };
@@ -205,8 +205,8 @@
 		B1D60A9C26D3071400BA428C /* Servicos */ = {
 			isa = PBXGroup;
 			children = (
-				B1D60AA126D307F100BA428C /* Repositorio.swift */,
 				B12154E12738274B00E4A667 /* Requisicao.swift */,
+				B1D6000F276FEDED00260A84 /* Repositorio.swift */,
 			);
 			path = Servicos;
 			sourceTree = "<group>";
@@ -375,10 +375,10 @@
 				B1D60A8626D3068200BA428C /* AppDelegate.swift in Sources */,
 				B19C642126E7C99200BA03F4 /* AdicionarEditarViewController.swift in Sources */,
 				B1606D4C2721838F00FF575D /* DTFTextField.swift in Sources */,
-				B1D60AA226D307F100BA428C /* Repositorio.swift in Sources */,
 				B1D60AAB26D3127000BA428C /* DTFButton.swift in Sources */,
 				B12FEC0D276365CB00A7CC02 /* DetalhesView.swift in Sources */,
 				B19C642726E8246300BA03F4 /* AdicionarEditarView.swift in Sources */,
+				B1D60010276FEDED00260A84 /* Repositorio.swift in Sources */,
 				B154304026EAB2DD00772F73 /* ConfiguracoesViewController.swift in Sources */,
 				B1606D452720EF7900FF575D /* EncomendaParaSalvarDTO.swift in Sources */,
 				B182FC8627051A4200914A46 /* DetalhesHeaderView.swift in Sources */,
