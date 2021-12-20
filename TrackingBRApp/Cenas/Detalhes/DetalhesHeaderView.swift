@@ -30,9 +30,12 @@ class DetalhesHeaderView: UITableViewHeaderFooterView {
     }
 
     func atualizarCidade(no indice: IndexPath) {
-        guard let cidade = viewModel!.rastreamento?.trackingEvents?[indice.row].eventLocation else { return }
+        guard let viewModel = viewModel else { return }
+        guard let cidade = viewModel.rastreamento?.trackingEvents?[indice.row].eventLocation else { return }
         localizar(cidade)
     }
+
+    func pontuarNoMapa() {}
 
     // MARK: Private
     private var viewModel: DetalhesViewModel?
@@ -50,41 +53,51 @@ class DetalhesHeaderView: UITableViewHeaderFooterView {
         return label
     }()
 
+    private var anotacoes: [MKPointAnnotation] = []
+
     private func tracarLinha() {
-        guard let cidades = viewModel?.rastreamento?.trackingEvents else { return }
+        guard let todasCidades = viewModel?.rastreamento?.trackingEvents else { return }
 
-        let cidadesFiltradas = cidades.filter { $0.eventLocation != "-" }
-
+        let cidadesFiltradas = todasCidades.filter { $0.eventLocation != "-" }
         let cidadesSelecionadas = cidadesFiltradas.map(\.eventLocation)
 
-        guard let cidade1 = cidadesSelecionadas.first else { return }
-        guard let cidade2 = cidadesSelecionadas.last else { return }
+        guard let primeiraCidade = cidadesSelecionadas.last else { return }
+        guard let ultimaCidade = cidadesSelecionadas.first else { return }
 
-        let cidadess = [cidade1, cidade2]
+        let cidades = [primeiraCidade, ultimaCidade]
 
-        var anotacoes: [MKPointAnnotation] = []
         var coordenadas2d: [CLLocationCoordinate2D] = []
 
-        for cidade in cidadess {
-            let anotacao = MKPointAnnotation()
-            anotacao.title = cidade
-
-            DispatchQueue.main.async {
-                let geodecoder = CLGeocoder()
-                geodecoder.geocodeAddressString(cidade) { locais, _ in
-                    if let coordenada = locais?.first?.location {
-                        let coordenada2d = CLLocationCoordinate2D(latitude: coordenada.coordinate.latitude, longitude: coordenada.coordinate.longitude)
-                        anotacao.coordinate = coordenada2d
-                        coordenadas2d.append(coordenada2d)
-                    }
-
-                    let linha = MKPolyline(coordinates: coordenadas2d, count: 2)
-
-                    anotacoes.append(anotacao)
-                    self.mapaView.showAnnotations(anotacoes, animated: true)
-                    self.mapaView.addOverlay(linha)
+        for cidade in cidades {
+            geolocalizacao(cidade) { resultado in
+                switch resultado {
+                    case let .success(cidade):
+                        coordenadas2d.append(cidade)
+                        let linha = MKPolyline(coordinates: coordenadas2d, count: coordenadas2d.count)
+                        self.mapaView.showAnnotations(self.anotacoes, animated: true)
+                        self.mapaView.addOverlay(linha)
+                    case let .failure(erro):
+                        print("==32===:  erro", erro)
                 }
             }
+        }
+    }
+
+    private func geolocalizacao(_ cidade: String, aoTerminar: @escaping (Result<CLLocationCoordinate2D, Error>) -> Void) {
+        let geoDecoder = CLGeocoder()
+        geoDecoder.geocodeAddressString(cidade) { locais, erro in
+            guard let localizacao = locais?.first?.location else {
+                aoTerminar(.failure(erro!))
+                return
+            }
+            let anotacao = MKPointAnnotation()
+            anotacao.title = cidade
+            anotacao.coordinate.latitude = localizacao.coordinate.latitude
+            anotacao.coordinate.longitude = localizacao.coordinate.longitude
+            self.anotacoes.append(anotacao)
+            let localizacao2d = CLLocationCoordinate2D(latitude: anotacao.coordinate.latitude,
+                                                       longitude: anotacao.coordinate.longitude)
+            aoTerminar(.success(localizacao2d))
         }
     }
 
@@ -100,11 +113,11 @@ class DetalhesHeaderView: UITableViewHeaderFooterView {
             guard let coordenada = local.location?.coordinate else { return }
 
             let coordenadaRegion = MKCoordinateRegion(center: coordenada,
-                                                      latitudinalMeters: 500,
-                                                      longitudinalMeters: 500)
+                                                      latitudinalMeters: 1500,
+                                                      longitudinalMeters: 1500)
             let cameraBoundary = MKMapView.CameraBoundary(coordinateRegion: coordenadaRegion)
 
-            let zoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 20000)
+            let zoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 100_000)
 
             DispatchQueue.main.async {
                 self.mapaView.region.span = MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
@@ -140,9 +153,9 @@ extension DetalhesHeaderView: ViewCode {
 // MARK: - MKMapViewDelegate
 extension DetalhesHeaderView: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let linha = MKPolylineRenderer(overlay: overlay)
-        linha.lineWidth = 3
-        linha.strokeColor = .systemRed
-        return linha
+        let render = MKPolylineRenderer(overlay: overlay)
+        render.lineWidth = 3
+        render.strokeColor = .systemRed
+        return render
     }
 }
