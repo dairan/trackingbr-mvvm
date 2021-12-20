@@ -20,6 +20,7 @@ final class DetalhesViewModel {
             switch resultado {
                 case let .success(rastreio):
                     self.rastreamento = rastreio
+//                    self.removerHifen(do: rastreio)
                     self.carregamentoFinalizadoSucesso?()
                 case .failure:
                     self.carregamentoFinalizadoErro?(.erroGenerico)
@@ -37,8 +38,18 @@ final class DetalhesViewModel {
     var rastreamento: Rastreio?
 
     func rastreio(no indexPath: IndexPath) -> String {
-        "\(rastreamento?.trackingEvents?[indexPath.row].eventDateTime ?? Date() ) | \(rastreamento?.trackingEvents?[indexPath.row].eventLocation ?? "Sem localizacao")"
+        "\(rastreamento?.trackingEvents?[indexPath.row].eventDateTime ?? Date()) | \(rastreamento?.trackingEvents?[indexPath.row].eventLocation ?? "Sem localizacao")"
     }
+
+//    func removerHifen(do rastreamento: Rastreio) {
+//        guard var rastreios = rastreamento.trackingEvents else { return }
+//        let rastr = rastreamento.trackingEvents?.filter( {$0.eventLocation == "-"})
+//        for rastreio in rastreios {
+//            if rastreio.eventLocation == "-" {
+//                rastreio.eventLocation = ""
+//            }
+//        }
+//    }
 
     // MARK: Private
 

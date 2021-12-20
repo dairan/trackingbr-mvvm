@@ -7,44 +7,37 @@
 
 import UIKit
 
+//protocol DTFTextFieldDelegate {
+//    func textFieldPressionado()
+//}
+
 class DTFTextField: UITextField {
-  // MARK: Internal
+    // MARK: Lifecycle
+    init(_ delegate: UITextFieldDelegate, com titulo: String, fundoNa cor: UIColor) {
+        super.init(frame: .zero)
+        accessibilityIdentifier = titulo
+        translatesAutoresizingMaskIntoConstraints = false
+        placeholder = titulo
+        backgroundColor = cor
+        layer.cornerRadius = espacamento.top / 2
+        layer.borderWidth = 1
+        font = UIFont.preferredFont(forTextStyle: .title1)
+        layer.borderColor = UIColor.white.cgColor
+        layer.masksToBounds = true
+        autocorrectionType = .no
+        enablesReturnKeyAutomatically = true
+        autocapitalizationType = .none
+        autocorrectionType = .no
+        spellCheckingType = .no
+        self.delegate = delegate
+    }
 
-  override func textRect(forBounds bounds: CGRect) -> CGRect {
-    bounds.inset(by: espacamento)
-  }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-  override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    bounds.inset(by: espacamento)
-  }
+    // MARK: Internal
+    override func textRect(forBounds bounds: CGRect) -> CGRect { bounds.inset(by: espacamento) }
+    override func editingRect(forBounds bounds: CGRect) -> CGRect { bounds.inset(by: espacamento) }
 
-  // MARK: Fileprivate
-
-  /// Para criar TextFields
-  /// - Parameters:
-  ///   - string: texto do placeholder
-  ///   - cor: de background
-  /// - Returns: textField montado pronto para uso.
-  func criar(comPlaceholder string: String, corBackground cor: UIColor) -> DTFTextField {
-    let textField = DTFTextField(frame: .zero)
-    textField.accessibilityIdentifier = string
-    textField.translatesAutoresizingMaskIntoConstraints = false
-    textField.placeholder = string
-    textField.backgroundColor = cor
-    textField.layer.cornerRadius = espacamento.top / 2
-    textField.layer.borderWidth = 1
-    textField.font = UIFont.preferredFont(forTextStyle: .title1)
-    textField.layer.borderColor = UIColor.white.cgColor
-    textField.layer.masksToBounds = true
-    textField.autocorrectionType = .no
-    textField.enablesReturnKeyAutomatically = true
-    textField.autocapitalizationType = .none
-    textField.autocorrectionType = .no
-    textField.spellCheckingType = .no
-    return textField
-  }
-
-  // MARK: Private
-
-  private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
+    // MARK: Private
+    private let espacamento = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
 }

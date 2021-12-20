@@ -27,7 +27,6 @@ enum ErroRepositorio: Error {
 
 final class Repositorio {
     // MARK: Internal
-
     func obterRastreio(da encomenda: Encomenda, aoCompletar: @escaping (Result<Rastreio, Error>) -> Void) {
         guard let codigo = encomenda.codigo else { return }
 
@@ -37,10 +36,12 @@ final class Repositorio {
             return
         }
 
+        guard let token = Bundle.main.infoDictionary?["API_TOKEN"] as? String else { return }
+
         var requisicao = URLRequest(url: url, cachePolicy: .reloadRevalidatingCacheData, timeoutInterval: 0)
         requisicao.addValue("application/json", forHTTPHeaderField: "Content-Type")
         requisicao.addValue("application/json", forHTTPHeaderField: "Accept")
-        requisicao.addValue("583DBD18REA52R4F92RB6B4R407280A80A9F", forHTTPHeaderField: "token")
+        requisicao.addValue(token, forHTTPHeaderField: "token")
 
         let requisicaoBody = Requisicao(OrderNumber: "",
                                         ShippingServiceCode: "04227",
@@ -54,7 +55,7 @@ final class Repositorio {
         requisicao.httpBody = jsonDados
         requisicao.httpMethod = httpMetodo.post.rawValue
 
-        let tarefa = sessao.dataTask(with: requisicao) { dados, _, erro in
+        let tarefa = sessao.dataTask(with: requisicao) { dados, resposta, erro in
             if let erro = erro { print("==36===:  erro", erro) }
 
             guard let dados = dados else { return }
@@ -67,7 +68,6 @@ final class Repositorio {
     }
 
     // MARK: Private
-
     private func converterJsonParaDados(requisicao: Requisicao) -> Data? {
         do {
             return try JSONEncoder().encode(requisicao)
@@ -92,6 +92,7 @@ extension DateFormatter {
 extension Data {
     func decodificar<T: Codable>() -> T? {
         let decodificador = JSONDecoder()
+        decodificador.keyDecodingStrategy = .converterPrimeiraLetraEmMinuscula
         decodificador.dateDecodingStrategy = .formatted(.converterStringParaDate)
         do {
             let resultado = try decodificador.decode(T.self, from: self)
@@ -102,3 +103,18 @@ extension Data {
         }
     }
 }
+
+extension JSONDecoder.KeyDecodingStrategy {
+    static let converterPrimeiraLetraEmMinuscula =  JSONDecoder.KeyDecodingStrategy.custom({ chaves in
+        guard let ultimaKey = chaves.last else { return AnyKey.vazia }
+        guard ultimaKey.intValue == nil else { return ultimaKey }
+
+        let primeiroCaracter = ultimaKey.stringValue.prefix(1).lowercased()
+        let tirarPrimeiraLetra = ultimaKey.stringValue.dropFirst()
+        let formatadaKey = primeiroCaracter + tirarPrimeiraLetra
+
+        return AnyKey(stringValue: formatadaKey)!
+    })
+
+}
+
