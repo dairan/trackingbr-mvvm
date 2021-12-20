@@ -60,6 +60,5 @@ extension EncomendaDetalhesViewController: ViewCode {
 extension EncomendaDetalhesViewController: DetalhesViewDelegate {
     func linhaSelecionada(no indice: IndexPath) {
         let rastreio = viewModel.rastreio(no: indice)
-
     }
 }

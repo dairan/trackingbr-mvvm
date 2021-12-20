@@ -20,7 +20,6 @@ protocol PrincipalViewDelegate: AnyObject {
 
 class PrincipalView: UIView {
     // MARK: Lifecycle
-
     init(coredata: CoreDataManager) {
         self.coredata = coredata
         super.init(frame: .zero)
@@ -37,11 +36,9 @@ class PrincipalView: UIView {
     }
 
     // MARK: Internal
-
     weak var delegate: PrincipalViewDelegate?
 
     // MARK: Private
-
     private var coredata: CoreDataManager
     private var fonteDados: UITableViewDiffableDataSource<String, Encomenda>?
 
@@ -63,10 +60,8 @@ class PrincipalView: UIView {
         }
     }
 
-
-
     private func fonteDadosSetup() -> UITableViewDiffableDataSource<String, Encomenda> {
-        UITableViewDiffableDataSource(tableView: listagemTableView) { tableView, indexPath, itemIdentifier in
+        UITableViewDiffableDataSource(tableView: listagemTableView) { tableView, indexPath, _ in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PrincipalTableViewCell.CellID, for: indexPath) as? PrincipalTableViewCell else { return UITableViewCell() }
 
             let encomenda = self.coredata.fetchResultController.object(at: indexPath)
@@ -74,7 +69,6 @@ class PrincipalView: UIView {
 
             return cell
         }
-        
     }
 
     private func configurarConstraits() {
@@ -88,7 +82,6 @@ class PrincipalView: UIView {
 }
 
 // MARK: - UITableViewDelegate
-
 extension PrincipalView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let encomenda = coredata.fetchResultController.object(at: indexPath)
@@ -98,13 +91,13 @@ extension PrincipalView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let encomenda = coredata.fetchResultController.object(at: indexPath)
 
-        let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { acao, view, aoTerminar in
+        let apagarAction = UIContextualAction(style: .destructive, title: "Apagar") { _, _, aoTerminar in
             self.coredata.apagar(encomenda: encomenda)
             aoTerminar(true)
         }
         apagarAction.image = UIImage(systemName: "trash")
 
-        let editarButton = UIContextualAction(style: .normal, title: "Editar") { acao, view, aoTerminar in
+        let editarButton = UIContextualAction(style: .normal, title: "Editar") { _, _, aoTerminar in
             aoTerminar(true)
         }
         editarButton.backgroundColor = .systemOrange
@@ -117,7 +110,6 @@ extension PrincipalView: UITableViewDelegate {
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
-
 extension PrincipalView: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference)

@@ -42,17 +42,6 @@ struct TrackingEvent: Codable {
     let eventDateTime: Date
     var eventLocation, eventDescription, eventType: String
     let eventStatus, carrierEvent, carrierStatus: String?
-
-//    enum CodingKeys: String, CodingKey {
-//        case sortDateTime = "SortDateTime"
-//        case eventDateTime = "EventDateTime"
-//        case eventLocation = "EventLocation"
-//        case eventDescription = "EventDescription"
-//        case eventType = "EventType"
-//        case eventStatus = "EventStatus"
-//        case carrierEvent = "CarrierEvent"
-//        case carrierStatus = "CarrierStatus"
-//    }
 }
 
 struct AnyKey: CodingKey {
