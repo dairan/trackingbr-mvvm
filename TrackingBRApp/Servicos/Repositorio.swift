@@ -92,6 +92,7 @@ extension DateFormatter {
 extension Data {
     func decodificar<T: Codable>() -> T? {
         let decodificador = JSONDecoder()
+        decodificador.keyDecodingStrategy = .converterPrimeiraLetraEmMinuscula
         decodificador.dateDecodingStrategy = .formatted(.converterStringParaDate)
         do {
             let resultado = try decodificador.decode(T.self, from: self)
@@ -102,3 +103,18 @@ extension Data {
         }
     }
 }
+
+extension JSONDecoder.KeyDecodingStrategy {
+    static let converterPrimeiraLetraEmMinuscula =  JSONDecoder.KeyDecodingStrategy.custom({ chaves in
+        guard let ultimaKey = chaves.last else { return AnyKey.vazia }
+        guard ultimaKey.intValue == nil else { return ultimaKey }
+
+        let primeiroCaracter = ultimaKey.stringValue.prefix(1).lowercased()
+        let tirarPrimeiraLetra = ultimaKey.stringValue.dropFirst()
+        let formatadaKey = primeiroCaracter + tirarPrimeiraLetra
+
+        return AnyKey(stringValue: formatadaKey)!
+    })
+
+}
+
