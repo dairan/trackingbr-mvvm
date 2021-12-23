@@ -1,5 +1,5 @@
 //
-//  EncomendaDetalhesViewController.swift
+//  DetalhesViewController.swift
 //  TrackingBRApp
 //
 //  Created by Dairan on 29/09/21.
@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - EncomendaDetalhesViewController
 
-class EncomendaDetalhesViewController: UIViewController {
+class DetalhesViewController: UIViewController {
     // MARK: Lifecycle
 
     init(com viewModel: DetalhesViewModel) {
@@ -42,7 +42,7 @@ class EncomendaDetalhesViewController: UIViewController {
 
 // MARK: - ViewCode
 
-extension EncomendaDetalhesViewController: ViewCode {
+extension DetalhesViewController: ViewCode {
     func configurar() {
         view.backgroundColor = .yellow
     }
@@ -57,7 +57,7 @@ extension EncomendaDetalhesViewController: ViewCode {
 
 // MARK: - DetalhesViewDelegate
 
-extension EncomendaDetalhesViewController: DetalhesViewDelegate {
+extension DetalhesViewController: DetalhesViewDelegate {
     func linhaSelecionada(no indice: IndexPath) {
         let rastreio = viewModel.rastreio(no: indice)
     }

@@ -91,7 +91,7 @@ extension PrincipalViewController: PrincipalViewDelegate {
 
         viewModelDetalhes.carregamentoFinalizadoSucesso = {
             self.atividadeIndicatorEnd()
-            let viewController = EncomendaDetalhesViewController(com: viewModelDetalhes)
+            let viewController = DetalhesViewController(com: viewModelDetalhes)
             self.show(viewController, sender: self)
         }
 
